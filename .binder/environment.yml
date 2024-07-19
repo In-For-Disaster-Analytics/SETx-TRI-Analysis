@@ -1,0 +1,13 @@
+name: /Users/wmobley/Documents/GitHub/SETx-TRI-Analysis/.conda
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - ipykernel
+  - itables
+  - pandas
+  - openpyxl
+  - geopandas
+  - ipywidgets
+prefix: /Users/wmobley/Documents/GitHub/SETx-TRI-Analysis/.conda
