@@ -11,4 +11,5 @@ dependencies:
   - openpyxl
   - geopandas
   - ipywidgets
+  - nbformat
 prefix: /Users/wmobley/Documents/GitHub/SETx-TRI-Analysis/.conda
