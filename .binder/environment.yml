@@ -12,6 +12,6 @@ dependencies:
   - geopandas
   - ipywidgets
   - nbformat
-  - PyQt6
+  - pyqt
   - numpy=2.0.0
 prefix: /Users/wmobley/Documents/GitHub/SETx-TRI-Analysis/.conda
