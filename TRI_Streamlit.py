@@ -37,7 +37,6 @@ pd.set_option('display.max_colwidth', 10)
 init_notebook_mode(all_interactive=True)
 import folium
 import matplotlib.pyplot as plt
-%matplotlib inline
 import re
 from plotly.offline import init_notebook_mode, iplot
 from plotly.graph_objs import *
