@@ -1,336 +1,158 @@
-# %% [markdown]
-# # Toxics Release Inventory (TRI) Overview
+import streamlit as st
+import pandas as pd
+from branca.colormap import LinearColormap
+import re
+import folium
 
-# %% [markdown]
-# The U.S. Environmental Protection Agency (EPA) TRI Program (https://www.epa.gov/toxics-release-inventory-tri-program) was created through the 1986 Emergency Planning and Community Right-to-Act (EPCRA) to provide information about air, land, and water releases of toxic chemicals from industrial and federal facilities. The current ***TRI toxic chemicals list contains 794 individually listed chemicals and 33 chemical categories***. 
-# 
-# Refer to EPA guidance (https://guideme.epa.gov/ords/guideme_ext/f?p=guideme:home) for detailed information regarding reporting requirements. If a facility meets all of three criteria, it must report for each chemical for which the reporting requirement is triggered. These include that it is (1) within a covered industy sector (as identified by six-digit North American Classification System or NAICS codes); (2) employs 10 or more full-time equivalent employees; and (3) manufactures, processes, or otherwise uses a TRI-listed chemical in the quantities above threshold levels in a given year. It should be noted that other air emissions from a facility that do not meet the reporting requirements in a given year would not be represented in the TRI. Data are reported annually. 
-
-# %% [markdown]
-# ## Objectives of this Platform
-
-# %% [markdown]
-# 
-# This interactive platform was developed to provide information about TRI air emissions (stack + fugitive) from faciltiies in SETx counties (Jefferson, Orange, Hardin, Jasper, Newton) for a user-selected year beginning in 1987. TRI data are obtained directly from the EPA through the TRI Basic Data Files: https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present. 
-# 
-# The platform was designed to enable DOE SETx-UIFL project team members to: 
-# 1. easily ingest annual TRI air data
-# 2. conduct analyses relevant to air quality and cross-theme research 
-# 3. provide supporting information for interactions with stakeholders in SETx.
-# 
-
-# %% [markdown]
-# #### Using the platform, you can determine:
-# 1. Air emissions in total and by individual counties in Texas
-# 2. TRI-listed chemicals and their quantitites emitted in SETx
-# 3. Industrial sectors and facilities that contribute to emissions of all or selected chemicals in SETx
-# 4. Chemical profiles of emissions from industrial sectors in SETx
-# 5. Chemical profiles of emissions from indiviudal facilities in SETx 
-
-# %%
 import pandas as pd
 import geopandas as gpd
-from itables import init_notebook_mode
-import ipywidgets as widgets
-from ipywidgets import interact,fixed
-pd.set_option('display.max_colwidth', 10)
-init_notebook_mode(all_interactive=True)
-import folium
-import matplotlib.pyplot as plt
-import re
-from plotly.offline import init_notebook_mode, iplot
-from plotly.graph_objs import *
-from ipywidgets import  Dropdown, Layout
-from IPython.display import display
+import streamlit_folium as st_folium
+
+st.write(" # Toxics Release Inventory (TRI) Overview")
+
+st.write(" The U.S. Environmental Protection Agency (EPA) TRI Program (https://www.epa.gov/toxics-release-inventory-tri-program) \
+         was created through the 1986 Emergency Planning and Community Right-to-Act (EPCRA) to provide information about air, land, \
+         and water releases of toxic chemicals from industrial and federal facilities. The current ***TRI toxic chemicals list contains\
+          794 individually listed chemicals and 33 chemical categories***. ")
+st.write("Refer to EPA guidance (https://guideme.epa.gov/ords/guideme_ext/f?p=guideme:home) for detailed information regarding reporting \
+         requirements. If a facility meets all of three criteria, it must report for each chemical for which the reporting requirement \
+         is triggered. These include that it is (1) within a covered industy sector (as identified by six-digit North American \
+         Classification System or NAICS codes); (2) employs 10 or more full-time equivalent employees; and (3) manufactures, processes,\
+          or otherwise uses a TRI-listed chemical in the quantities above threshold levels in a given year. It should be noted that \
+         other air emissions from a facility that do not meet the reporting requirements in a given year would not be represented in \
+         the TRI. Data are reported annually. ")
+
+st.write(" ## Objectives of this Platform")
+
+st.write(" This interactive platform was developed to provide information about TRI air emissions (stack + fugitive) from faciltiies \
+         in SETx counties (Jefferson, Orange, Hardin, Jasper, Newton) for a user-selected year beginning in 1987.\
+          TRI data are obtained directly from the EPA through the TRI Basic Data Files:\
+          https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present. ")
+st.write("""  The platform was designed to enable DOE SETx-UIFL project team members to: 
+ 1. Easily ingest annual TRI air data
+ 2. Conduct analyses relevant to air quality and cross-theme research ")
+ 3. Provide supporting information for interactions with stakeholders in SETx.""")
+
+st.write(" #### Using the platform, you can determine:")
+st.write(""" 1. Air emissions in total and by individual counties in Texas
+ 2. TRI-listed chemicals and their quantitites emitted in SETx
+ 3. Industrial sectors and facilities that contribute to emissions of all or selected chemicals in SETx
+ 4. Chemical profiles of emissions from industrial sectors in SETx
+5. Chemical profiles of emissions from indiviudal facilities in SETx """)
+
+# from itables import init_notebook_mode
+# import ipywidgets as widgets
+# from ipywidgets import interact,fixed
+# pd.set_option('display.max_colwidth', 10)
+# init_notebook_mode(all_interactive=True)
+# import matplotlib.pyplot as plt
+# from plotly.offline import init_notebook_mode, iplot
+# from plotly.graph_objs import *
+# from ipywidgets import  Dropdown, Layout
+# from IPython.display import display
 import plotly.express as px
 import plotly.graph_objects as go
-from ipywidgets import Layout
-init_notebook_mode(connected=True)         # initiate notebook for offline plot
+# from ipywidgets import Layout
+# init_notebook_mode(connected=True)         # initiate notebook for offline plot
+
+
 def remove_numbers_and_hyphen_with_space(text):
      return re.sub(r'\d+\. ', '', text)
-
-# %% [markdown]
-# ## Read Files
-# 
-# ### Select a TRI Year of Interest (1987 - Most Recent Available Release)
-
-# %%
-year = slider = widgets.IntSlider(
-    value=2022,
-    min=1987,
-    max=2022,
-    step=1,
-    description='Year of Emissions:',
-    disabled=False,
-    continuous_update=False,
-    orientation='horizontal',
-    readout=True,
-    readout_format='d',
-        layout=Layout(width='75%'),
-    style={'description_width': 'initial'}
-)
-
-region = widgets.Dropdown(
-    options=["TX", 'US'],
-    value='TX',
-    description='Region of Interest',
-    disabled=False,
-        layout=Layout(width='75%'),
-    style={'description_width': 'initial'}
-)
-display(year)
-display(region)
-
-
+@st.cache_data
 def download():
     try:
-        df = pd.read_csv(f'https://data.epa.gov/efservice/downloads/tri/mv_tri_basic_download/{year.value}_{region.value}/csv')
-        return df
-    except Exception as e:
-        return f"Error downloading data: {str(e)}"
-
-# Create the download button
-download_button = widgets.Button(
-    description='Download Data',
-    disabled=False,
-    button_style='', # 'success', 'info', 'warning', 'danger' or ''
-    tooltip='Click to download data',
-    icon='download', # (FontAwesome names without the `fa-` prefix)
-    layout=Layout(width='75%'),
-    style={'description_width': 'initial'}
-)
-
-output = widgets.Output()
-# Define what happens when the button is clicked
-@output.capture()
-def on_button_clicked(b):
-    with output:
-        print("Downloading data... This may take a while.")
-        result = download()
-        if isinstance(result, pd.DataFrame):
-            print(f"Download complete. Shape of data: {result.shape}")
+        TRI = pd.read_csv(f'https://data.epa.gov/efservice/downloads/tri/mv_tri_basic_download/{year}_{region}/csv')
+        if isinstance(TRI, pd.DataFrame):
+            st.write("Data downloaded successfully.")
+            st.write(TRI)
         else:
-            print(result)
+            st.write(TRI)    
+        NAICS = pd.read_excel("../2022_NAICS_Descriptions.xlsx")
+        counties = gpd.read_file('../Texas_County_Boundaries_Detailed_-8523147194422581030.geojson')
+        TRI.columns= [remove_numbers_and_hyphen_with_space(c) for c in TRI.columns]
+        TRI['NAICS 6-digit']= TRI['PRIMARY NAICS']
+        TRI = TRI.join(NAICS.set_index("Code"), on="PRIMARY NAICS")
+        TRI['NAICS Description']= TRI['Title']
+        TRI['CHEMICAL']= TRI.apply(lambda x: x['CHEMICAL'][:100], axis=1)
+        counties['Counties']=(counties.CNTY_NM.str.upper())
 
-# Attach the function to the button
-download_button.on_click(on_button_clicked)
+        return NAICS, counties, TRI
 
-# Display the button and output
-# display(download_button, output)
+    except Exception as e:
+        return f"Error downloading data: {str(e)}", None, None
 
-# %% [markdown]
-# ### TRI BASICS DOWNLOAD
-# *Note the most recent emission inventory data can be subject to updates by EPA.*
-
-# %%
-
-if len(output.outputs)==0:
-    TRI=download()
-else: 
-    TRI = output
-
-NAICS = pd.read_excel("2022_NAICS_Descriptions.xlsx")
-counties = gpd.read_file('Texas_County_Boundaries_Detailed_-8523147194422581030.geojson')
-TRI.columns= [remove_numbers_and_hyphen_with_space(c) for c in TRI.columns]
-TRI['NAICS 6-digit']= TRI['PRIMARY NAICS']
-
-
-# %% [markdown]
-# ### Join Tables, Adjust Size of columns
-
-# %%
-TRI = TRI.join(NAICS.set_index("Code"), on="PRIMARY NAICS")
-TRI['NAICS Description']= TRI['Title']
-TRI['CHEMICAL']= TRI.apply(lambda x: x['CHEMICAL'][:100], axis=1)
-counties['Counties']=(counties.CNTY_NM.str.upper())
-
-
-# %% [markdown]
-# ## Calculate Total Air Emissions (Stack + Fugitive) by Chemical for Each Texas Facility 
-
-# %%
 def calculate_Total_Air(x):
     if x['UNIT OF MEASURE']=='Pounds':
         return x['5.1 - FUGITIVE AIR']+x['5.2 - STACK AIR']
     else:
         return (x['5.1 - FUGITIVE AIR']+x['5.2 - STACK AIR'])/453.592 #Note dioxin converted from grams to pounds
-TRI['Total Air (lbs)']= TRI.apply(lambda x: calculate_Total_Air(x), axis=1)
-TRI['Total Air (Tons)']=TRI['Total Air (lbs)']/2000
 
-
-# %% [markdown]
-# ## Calculate Total Air Emissions in Texas
-# Sum of stack and fugitive emissions (pounds; tons) from all Texas facilities for selected year
-
-# %%
-print(f"Texas Total (lbs) = {TRI['Total Air (lbs)'].sum() :,} ")
-print(f"Texas Total (Tons)= {TRI['Total Air (Tons)'].sum() :,} ")
-
-# %%
-county_df = pd.DataFrame()
-county_df['County'] = TRI['COUNTY'].unique()
-for g in TRI.groupby('COUNTY'):
-    county_df.loc[county_df['County']==g[0], 'TRI 2022 Air Total (pounds)']=g[1]['Total Air (lbs)'].sum()
-county_df['TRI 2022 Air Total (Tons)']=county_df['TRI 2022 Air Total (pounds)']/2000
-county_df['TRI Air Release Total (County Rank)']=county_df['TRI 2022 Air Total (Tons)'].rank(ascending=False)
-tri_counties = counties.join(county_df.set_index('County'), on = 'Counties').reset_index()
-tri_counties.fillna(0, inplace = True)
-
-# %% [markdown]
-# ## Total Air Emissions by Texas County
-# Ranking of Total Air Emissions (lbs; Tons) for Texas Counties TRI. 
-# #### Select column to order ascending/descending
-
-# %%
-def display_county_df():
-    display(county_df)
-
-# Create the download button
-download_button = widgets.Button(
-    description='Refresh',
-    disabled=False,
-    button_style='', # 'success', 'info', 'warning', 'danger' or ''
-    tooltip='Click to download data',
-    icon='download', # (FontAwesome names without the `fa-` prefix)
-    layout=Layout(width='75%'),
-    style={'description_width': 'initial'}
-)
-
-output = widgets.Output()
-# Define what happens when the button is clicked
-@output.capture()
-def on_button_clicked(b):
-    with output:
-        
-        result = display_county_df()
-        
-
-# Attach the function to the button
-download_button.on_click(on_button_clicked)
-display_county_df()
-# Display the button and output
-# display(download_button)
-
-# %% [markdown]
-# ## Map TRI Emissions (Tons) by Texas County 
-
-# %%
-from branca.colormap import LinearColormap
-
-# Create a map centered on Texas
-m = folium.Map(location=[31, -100], zoom_start=6)
-breaks = [0, 100, 200, 500, 1000, 2500, 5000]
-colors = ['#00FF00', '#66FF00', '#CCFF00', '#FFFF00', '#FFCC00', '#FF6600', '#FF0000']
-# Create a color map with custom breaks
-# colormap = LinearColormap(colors=colors, vmin=0, vmax=5000)
-# colormap.index = breaks
-colormap = LinearColormap(colors=colors, vmin=0, vmax=5000, index=breaks)
-tri_counties['TRI 2022 Air Total (Tons)']=tri_counties['TRI 2022 Air Total (Tons)'].astype(int)
-# Add the counties to the map
-folium.GeoJson(
-    tri_counties,
-    style_function=lambda feature: {
-        'fillColor': colormap(int(min(feature['properties']['TRI 2022 Air Total (Tons)'], 50000))),
-        'color': 'black',
-        'weight': 1,
-        'fillOpacity': 0.7,
-    },
-    tooltip=folium.GeoJsonTooltip(fields=['CNTY_NM', 'TRI 2022 Air Total (Tons)'])
-).add_to(m)
-
-
-# Create a custom legend with responsive sizing
-legend_html = '''
-<div style="position: fixed; bottom: 50px; left: 50px; width: 220px; height: 180px;
-border:2px solid grey; z-index:9999; font-size:14px; background-color:white;
-">&nbsp; TRI 2022 Air Total (Tons)<br>
-&nbsp; <i style="background:#00FF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;0 - 100<br>
-&nbsp; <i style="background:#66FF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;100 - 200<br>
-&nbsp; <i style="background:#CCFF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;200 - 500<br>
-&nbsp; <i style="background:#FFFF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;500 - 1,000<br>
-&nbsp; <i style="background:#FFCC00; display:inline-block; width:10px; height:10px;"></i>&nbsp;1,000 - 2,500<br>
-&nbsp; <i style="background:#FF6600; display:inline-block; width:10px; height:10px;"></i>&nbsp;2,500 - 5,000<br>
-&nbsp; <i style="background:#FF0000; display:inline-block; width:10px; height:10px;"></i>&nbsp;5,000+
-</div>
-'''
+def map(tri_counties):
+    st.write('## Map TRI Emissions (Tons) by Texas County')
+    # Create a map centered on Texas
+    m = folium.Map(location=[31, -100], zoom_start=6)
+    breaks = [0, 100, 200, 500, 1000, 2500, 5000]
+    colors = ['#00FF00', '#66FF00', '#CCFF00', '#FFFF00', '#FFCC00', '#FF6600', '#FF0000']
+    # Create a color map with custom breaks
+    colormap = LinearColormap(colors=colors, vmin=0, vmax=5000, index=breaks)
+    tri_counties['TRI 2022 Air Total (Tons)']=tri_counties['TRI 2022 Air Total (Tons)'].astype(int)
+    # Add the counties to the map
+    folium.GeoJson(
+        tri_counties,
+        style_function=lambda feature: {
+            'fillColor': colormap(int(min(feature['properties']['TRI 2022 Air Total (Tons)'], 50000))),
+            'color': 'black',
+            'weight': 1,
+            'fillOpacity': 0.7,
+        },
+        tooltip=folium.GeoJsonTooltip(fields=['CNTY_NM', 'TRI 2022 Air Total (Tons)'])
+    ).add_to(m)
 
 
 
-# Add the custom legend to the map
-m.get_root().html.add_child(folium.Element(legend_html))
-
-# Display the map
-display(m)
-
-# %% [markdown]
-# ## Air Emissions and Ranking by Chemical, Industrial Sector, or Facility for SETx Counties 
-
-# %%
-setx_counties = ['JASPER', 'JEFFERSON', 'ORANGE', 'HARDIN', 'NEWTON' ]
-dropdown = widgets.Dropdown(
-    options=[ 'CHEMICAL','NAICS Description', "FACILITY NAME"],
-    value='CHEMICAL',
-    description='Group by:',
-    disabled=False,
-)
-slider = widgets.IntSlider(
-    value=20,
-    min=0,
-    max=252,
-    step=5,
-    description='Top Emissions:',
-    disabled=False,
-    continuous_update=False,
-    orientation='horizontal',
-    readout=True,
-    readout_format='d'
-)
+    # Create a custom legend with responsive sizing
+    legend_html = '''
+    <div style="position: fixed; bottom: 50px; left: 50px; width: 220px; height: 180px;
+    border:2px solid grey; z-index:9999; font-size:14px; background-color:white;
+    ">&nbsp; TRI 2022 Air Total (Tons)<br>
+    &nbsp; <i style="background:#00FF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;0 - 100<br>
+    &nbsp; <i style="background:#66FF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;100 - 200<br>
+    &nbsp; <i style="background:#CCFF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;200 - 500<br>
+    &nbsp; <i style="background:#FFFF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;500 - 1,000<br>
+    &nbsp; <i style="background:#FFCC00; display:inline-block; width:10px; height:10px;"></i>&nbsp;1,000 - 2,500<br>
+    &nbsp; <i style="background:#FF6600; display:inline-block; width:10px; height:10px;"></i>&nbsp;2,500 - 5,000<br>
+    &nbsp; <i style="background:#FF0000; display:inline-block; width:10px; height:10px;"></i>&nbsp;5,000+
+    </div>
+    '''
 
 
-box = widgets.Box([dropdown, slider])
+    # Add the custom legend to the map
+    m.get_root().html.add_child(folium.Element(legend_html))
+
+        # Display the map in Streamlit
+    st_folium.folium_static(m)
 
 
-# %% [markdown]
-# #### Select Emissions Ranking by Chemical, North American Industry Classification System (NAICS) Description, or Facility
+def Texas_Total_Air():
+    st.write('## Calculate Total Air Emissions in Texas')
+    st.write('Sum of stack and fugitive emissions (pounds; tons) from all Texas facilities for selected year.')
+    st.write(f'#### **Texas Total (lbs) = {TRI['Total Air (lbs)'].sum() :,}**')
+    st.write(f'#### **Texas Total (Tons)= {TRI['Total Air (Tons)'].sum() :,}**')
+    county_df = pd.DataFrame()
+    county_df['County'] = TRI['COUNTY'].unique()
+    for g in TRI.groupby('COUNTY'):
+        county_df.loc[county_df['County']==g[0], 'TRI 2022 Air Total (pounds)']=g[1]['Total Air (lbs)'].sum()
+    county_df['TRI 2022 Air Total (Tons)']=county_df['TRI 2022 Air Total (pounds)']/2000
+    county_df['TRI Air Release Total (County Rank)']=county_df['TRI 2022 Air Total (Tons)'].rank(ascending=False)
+    tri_counties = counties.join(county_df.set_index('County'), on = 'Counties').reset_index()
+    tri_counties.fillna(0, inplace = True)
+    st.write('## Total Air Emissions by Texas County\n\
+            Ranking of Total Air Emissions (lbs; Tons) for Texas Counties TRI.')
+    st.write('#### Select column to order ascending/descending.')
+    st.write(county_df)
+    map(tri_counties)
 
-# %%
-setx_counties = ['JASPER', 'JEFFERSON', 'ORANGE', 'HARDIN', 'NEWTON' ]
-
-
-# %%
-
-
-# Assuming TRI and setx_counties are defined elsewhere in your code
-
-dropdown = widgets.Dropdown(
-    options=['CHEMICAL', 'NAICS Description', "FACILITY NAME"],
-    value='CHEMICAL',
-    description='Group by:',
-    disabled=False,
-    layout=Layout(width='75%'),
-    style={'description_width': 'initial'}
-)
-
-# slider = widgets.IntSlider(
-#     value=20,
-#     min=0,
-#     max=252,
-#     step=5,
-#     description='Top Emissions:',
-#     disabled=False,
-#     continuous_update=False,
-#     orientation='horizontal',
-#     readout=True,
-#     readout_format='d',
-#     layout=Layout(width='75%'),
-#     style={'description_width': 'initial'}
-# )
-
-box = widgets.Box([dropdown])
-out = widgets.Output()
-
-@out.capture()
-def create_chart_plotly(group, setx=True):
+def create_chart_plotly(TRI, group, setx=True):
     # Use inputs to format chart data
     if setx:
         chemical = TRI.loc[TRI['COUNTY'].isin(setx_counties)].groupby(group)['Total Air (Tons)'].sum()
@@ -338,7 +160,6 @@ def create_chart_plotly(group, setx=True):
         chemical = TRI.groupby(group)['Total Air (Tons)'].sum()
     
     length = len(chemical)
-    slider.max = length
     plot_data = chemical.loc[chemical > 0].sort_values(ascending=False)
     
     # Set chart title per inputs
@@ -390,73 +211,88 @@ def create_chart_plotly(group, setx=True):
         )
     )
 
+    st.plotly_chart(bar_plot)
 
 
-    # Clear previous output and display the new chart
-    out.clear_output(wait=True)
-    fig = go.FigureWidget(bar_plot)
-    display(fig)
 
-# Create the interactive widget
-interactive_plot = widgets.interactive(create_chart_plotly, group=dropdown,  setx=True)
-
-# # Display the widget and output
-display(box, out)
-# interactive_plot
-
-
-# %% [markdown]
-# ## Industrial Sector Chemical Profiles in SETx-UIFL
-
-# %%
-
-geo = {'CHEMICAL':['NAICS Description', "FACILITY NAME"],
+def display_NAICS_profile(  ):
+    st.write('## Industrial Sector Chemical Profiles in SETx-UIFL')
+    geo = {'CHEMICAL':['NAICS Description', "FACILITY NAME"],
        'NAICS Description':['CHEMICAL'],
          'FACILITY NAME':['CHEMICAL']}
-row = Dropdown(options = geo.keys(),
-                description='Select what you want to profile ',
-                align_items='stretch',
-                layout=Layout(width='75%'),
-                 style= {'description_width': 'initial'} )
-init = row.value
-columns = Dropdown(options=geo[init],
-                    description='Select how you want it profiled (Columns) ',
-                    align_items='stretch',
-                   layout=Layout(width='75%'),
-                     style= {'description_width': 'initial'} )
+    with st.form(key='my_form'):
+        row = st.selectbox(options = geo.keys(),
+                        label='Select what you want to profile ',
+        )
+        st.session_state.init = st.session_state.row
+        columns = st.selectbox(options=geo[st.session_state.init],
+                            label='Select how you want it profiled (Columns) ',
+                        )
 
-selection  = widgets.SelectMultiple(
-                        options=TRI.loc[(TRI['COUNTY'].isin(setx_counties)),'NAICS Description'].unique(),
-                        value=['Paperboard Mills', 'Petrochemical Manufacturing'],
-                        layout=Layout(width='75%', height='80px'), 
-                        style= {'description_width': 'initial'},
-                        description="Select columns you want to view:"
-                    )
+        selection  = st.multiselect(
+                                options=TRI.loc[(TRI['COUNTY'].isin(setx_counties)),'NAICS Description'].unique(),
+                                default=['Paperboard Mills', 'Petrochemical Manufacturing'],
+                            
+                                label="Select columns you want to view:"
+                            )
+        submit_button = st.form_submit_button(label='Submit')
 
+    st.write(f'Select which {row} to profile by {columns} sector.',)
+    if len(selection)==0:
+        selection= TRI.loc[(TRI['COUNTY'].isin(setx_counties)),columns].unique().tolist()[:3]
 
-def display_NAICS_profile( row, column, NAICS  ):
-    display(f'Select which {row} to profile by {column} sector.',)
-    columns.options = geo[row] 
-    selection.options = TRI.loc[(TRI['COUNTY'].isin(setx_counties)),columns.value].unique()
-    if len(selection.value)==0:
-        selection.value= TRI.loc[(TRI['COUNTY'].isin(setx_counties)),columns.value].unique().tolist()[:3]
-    try:
-        return TRI.loc[(TRI['COUNTY'].isin(setx_counties)) & (TRI[columns.value].isin(NAICS))& (TRI['CHEMICAL'])].pivot_table(index=row, 
-                    columns=column, values='Total Air (Tons)', aggfunc='sum', fill_value=0)
-    except Exception:
-        pass
+    st.dataframe( TRI.loc[(TRI['COUNTY'].isin(setx_counties)) & (TRI[columns].isin(selection))& \
+                    (TRI['CHEMICAL'])].pivot_table(index=row, 
+                columns=columns, values='Total Air (Tons)', aggfunc='sum', fill_value=0))
 
 
+ 
+if __name__ == '__main__':
+        
+
+    st.write("# TRI BASICS DOWNLOAD")
+    st.write(" *Note the most recent emission inventory data can be subject to updates by EPA.*")
+    st.write("### Select a TRI Year of Interest (1987 - Most Recent Available Release)")
+
+    # # %%
+    year = slider = st.slider(
+        value=2022,
+        min_value=1987,
+        max_value=2022,
+        step=1,
+        label='Year of Emissions:',
+        
+    )
+
+    region =st.selectbox(
+        options=["TX", 'US'],
+        index=0,
+        label='Region of Interest',
+        disabled=False,
+        
+    )
 
 
 
-# %%
-
-interact(display_NAICS_profile, NAICS=selection, row=row,  column=columns)
 
 
+    NAICS, counties, TRI = download()
 
-# %%
+    st.write('## Calculate Total Air Emissions (Stack + Fugitive) by Chemical for Each Texas Facility ')
+    TRI['Total Air (lbs)']= TRI.apply(lambda x: calculate_Total_Air(x), axis=1)
+    TRI['Total Air (Tons)']=TRI['Total Air (lbs)']/2000
+    Texas_Total_Air()
+    setx_counties = ['JASPER', 'JEFFERSON', 'ORANGE', 'HARDIN', 'NEWTON' ]
+    st.session_state.dropdown = st.selectbox(
+        options=[ 'CHEMICAL','NAICS Description', "FACILITY NAME"],
+        index=0,
+        label='Group by:')
+    st.write('## Air Emissions and Ranking by Chemical, Industrial Sector, or Facility for SETx Counties')
+    create_chart_plotly(TRI, st.session_state.dropdown, setx=True)
+    display_NAICS_profile()
+
+
+
 
 
 
