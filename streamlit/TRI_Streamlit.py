@@ -102,7 +102,7 @@ def map(tri_counties):
     st_folium.folium_static(m)
 
 
-def Texas_Total_Air():
+def Texas_Total_Air(TRI):
     st.write('## Calculate Total Air Emissions in Texas')
     st.write('Sum of stack and fugitive emissions (pounds; tons) from all Texas facilities for selected year.')
     st.write(f'#### **Texas Total (lbs) = {TRI['Total Air (lbs)'].sum() :,}**')
@@ -184,7 +184,7 @@ def create_chart_plotly(TRI, group, setx=True):
 
 
 
-def display_NAICS_profile(  ):
+def display_NAICS_profile( TRI ):
     st.write('## Industrial Sector Chemical Profiles in SETx-UIFL')
     geo = {'CHEMICAL':['NAICS Description', "FACILITY NAME"],
        'NAICS Description':['CHEMICAL'],
@@ -273,7 +273,7 @@ if __name__ == '__main__':
 
     st.write('## Calculate Total Air Emissions (Stack + Fugitive) by Chemical for Each Texas Facility ')
 
-    Texas_Total_Air()
+    Texas_Total_Air(TRI)
     setx_counties = ['JASPER', 'JEFFERSON', 'ORANGE', 'HARDIN', 'NEWTON' ]
     st.session_state.dropdown = st.selectbox(
         options=[ 'CHEMICAL','NAICS Description', "FACILITY NAME"],
@@ -281,7 +281,7 @@ if __name__ == '__main__':
         label='Group by:')
     st.write('## Air Emissions and Ranking by Chemical, Industrial Sector, or Facility for SETx Counties')
     create_chart_plotly(TRI, st.session_state.dropdown, setx=True)
-    display_NAICS_profile()
+    display_NAICS_profile(TRI)
 
 
 
