@@ -34,8 +34,7 @@ def download(year, region):
         if isinstance(TRI, pd.DataFrame):
             st.write("Data downloaded successfully.")
             st.write(TRI)
-        else:
-            st.write(TRI)    
+   
         NAICS = pd.read_excel("../2022_NAICS_Descriptions.xlsx")
         counties = gpd.read_file('../Texas_County_Boundaries_Detailed_-8523147194422581030.geojson')
         TRI.columns= [remove_numbers_and_hyphen_with_space(c) for c in TRI.columns]
@@ -44,7 +43,8 @@ def download(year, region):
         TRI['NAICS Description']= TRI['Title']
         TRI['CHEMICAL']= TRI.apply(lambda x: x['CHEMICAL'][:100], axis=1)
         counties['Counties']=(counties.CNTY_NM.str.upper())
-
+        TRI['Total Air (lbs)']= TRI.apply(lambda x: calculate_Total_Air(x), axis=1)
+        TRI['Total Air (Tons)']=TRI['Total Air (lbs)']/2000
         return NAICS, counties, TRI
 
     except Exception as e:
@@ -272,8 +272,7 @@ if __name__ == '__main__':
     NAICS, counties, TRI = download(year, region)
 
     st.write('## Calculate Total Air Emissions (Stack + Fugitive) by Chemical for Each Texas Facility ')
-    TRI['Total Air (lbs)']= TRI.apply(lambda x: calculate_Total_Air(x), axis=1)
-    TRI['Total Air (Tons)']=TRI['Total Air (lbs)']/2000
+
     Texas_Total_Air()
     setx_counties = ['JASPER', 'JEFFERSON', 'ORANGE', 'HARDIN', 'NEWTON' ]
     st.session_state.dropdown = st.selectbox(
