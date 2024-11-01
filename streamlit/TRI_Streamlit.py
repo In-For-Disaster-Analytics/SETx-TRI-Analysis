@@ -7,27 +7,13 @@ import folium
 import pandas as pd
 import geopandas as gpd
 import streamlit_folium as st_folium
-
-
-# from itables import init_notebook_mode
-# import ipywidgets as widgets
-# from ipywidgets import interact,fixed
-# pd.set_option('display.max_colwidth', 10)
-# init_notebook_mode(all_interactive=True)
-# import matplotlib.pyplot as plt
-# from plotly.offline import init_notebook_mode, iplot
-# from plotly.graph_objs import *
-# from ipywidgets import  Dropdown, Layout
-# from IPython.display import display
 import plotly.express as px
-import plotly.graph_objects as go
-# from ipywidgets import Layout
-# init_notebook_mode(connected=True)         # initiate notebook for offline plot
+import plotly.graph_objects as go         # initiate notebook for offline plot
 
 
 def remove_numbers_and_hyphen_with_space(text):
      return re.sub(r'\d+\. ', '', text)
-@st.cache_data
+# @st.cache_data
 def download(year, region):
     try:
         TRI = pd.read_csv(f'https://data.epa.gov/efservice/downloads/tri/mv_tri_basic_download/{year}_{region}/csv')
@@ -43,8 +29,8 @@ def download(year, region):
         TRI['NAICS Description']= TRI['Title']
         TRI['CHEMICAL']= TRI.apply(lambda x: x['CHEMICAL'][:100], axis=1)
         counties['Counties']=(counties.CNTY_NM.str.upper())
-        TRI['Total Air (lbs)']= TRI.apply(lambda x: calculate_Total_Air(x), axis=1)
-        TRI['Total Air (Tons)']=TRI['Total Air (lbs)']/2000
+        TRI['Total Air (lbs)'] = TRI.apply(lambda x: calculate_Total_Air(x), axis=1)
+        TRI['Total Air (Tons)']= TRI['Total Air (lbs)']/2000
         return NAICS, counties, TRI
 
     except Exception as e:
