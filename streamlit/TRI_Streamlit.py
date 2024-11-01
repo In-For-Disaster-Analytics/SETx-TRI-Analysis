@@ -17,9 +17,7 @@ def remove_numbers_and_hyphen_with_space(text):
 def download(year, region):
     try:
         TRI = pd.read_csv(f'https://data.epa.gov/efservice/downloads/tri/mv_tri_basic_download/{year}_{region}/csv')
-        if isinstance(TRI, pd.DataFrame):
-            st.write("Data downloaded successfully.")
-            st.write(TRI)
+
    
         NAICS = pd.read_excel("../2022_NAICS_Descriptions.xlsx")
         counties = gpd.read_file('../Texas_County_Boundaries_Detailed_-8523147194422581030.geojson')
@@ -31,6 +29,9 @@ def download(year, region):
         counties['Counties']=(counties.CNTY_NM.str.upper())
         TRI['Total Air (lbs)'] = TRI.apply(lambda x: calculate_Total_Air(x), axis=1)
         TRI['Total Air (Tons)']= TRI['Total Air (lbs)']/2000
+        if isinstance(TRI, pd.DataFrame):
+            st.write("Data downloaded successfully.")
+            st.dataframe(TRI)
         return NAICS, counties, TRI
 
     except Exception as e:
@@ -104,7 +105,7 @@ def Texas_Total_Air(TRI):
     st.write('## Total Air Emissions by Texas County\n\
             Ranking of Total Air Emissions (lbs; Tons) for Texas Counties TRI.')
     st.write('#### Select column to order ascending/descending.')
-    st.write(county_df)
+    st.dataframe(county_df)
     map(tri_counties)
 
 def create_chart_plotly(TRI, group, setx=True):
