@@ -8,37 +8,6 @@ import pandas as pd
 import geopandas as gpd
 import streamlit_folium as st_folium
 
-st.write(" # Toxics Release Inventory (TRI) Overview")
-
-st.write(" The U.S. Environmental Protection Agency (EPA) TRI Program (https://www.epa.gov/toxics-release-inventory-tri-program) \
-         was created through the 1986 Emergency Planning and Community Right-to-Act (EPCRA) to provide information about air, land, \
-         and water releases of toxic chemicals from industrial and federal facilities. The current ***TRI toxic chemicals list contains\
-          794 individually listed chemicals and 33 chemical categories***. ")
-st.write("Refer to EPA guidance (https://guideme.epa.gov/ords/guideme_ext/f?p=guideme:home) for detailed information regarding reporting \
-         requirements. If a facility meets all of three criteria, it must report for each chemical for which the reporting requirement \
-         is triggered. These include that it is (1) within a covered industy sector (as identified by six-digit North American \
-         Classification System or NAICS codes); (2) employs 10 or more full-time equivalent employees; and (3) manufactures, processes,\
-          or otherwise uses a TRI-listed chemical in the quantities above threshold levels in a given year. It should be noted that \
-         other air emissions from a facility that do not meet the reporting requirements in a given year would not be represented in \
-         the TRI. Data are reported annually. ")
-
-st.write(" ## Objectives of this Platform")
-
-st.write(" This interactive platform was developed to provide information about TRI air emissions (stack + fugitive) from faciltiies \
-         in SETx counties (Jefferson, Orange, Hardin, Jasper, Newton) for a user-selected year beginning in 1987.\
-          TRI data are obtained directly from the EPA through the TRI Basic Data Files:\
-          https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present. ")
-st.write("""  The platform was designed to enable DOE SETx-UIFL project team members to: 
- 1. Easily ingest annual TRI air data
- 2. Conduct analyses relevant to air quality and cross-theme research ")
- 3. Provide supporting information for interactions with stakeholders in SETx.""")
-
-st.write(" #### Using the platform, you can determine:")
-st.write(""" 1. Air emissions in total and by individual counties in Texas
- 2. TRI-listed chemicals and their quantitites emitted in SETx
- 3. Industrial sectors and facilities that contribute to emissions of all or selected chemicals in SETx
- 4. Chemical profiles of emissions from industrial sectors in SETx
-5. Chemical profiles of emissions from indiviudal facilities in SETx """)
 
 # from itables import init_notebook_mode
 # import ipywidgets as widgets
@@ -59,7 +28,7 @@ import plotly.graph_objects as go
 def remove_numbers_and_hyphen_with_space(text):
      return re.sub(r'\d+\. ', '', text)
 @st.cache_data
-def download():
+def download(year, region):
     try:
         TRI = pd.read_csv(f'https://data.epa.gov/efservice/downloads/tri/mv_tri_basic_download/{year}_{region}/csv')
         if isinstance(TRI, pd.DataFrame):
@@ -249,34 +218,58 @@ def display_NAICS_profile(  ):
  
 if __name__ == '__main__':
         
+    st.write(" # Toxics Release Inventory (TRI) Overview")
+
+    st.write(" The U.S. Environmental Protection Agency (EPA) TRI Program (https://www.epa.gov/toxics-release-inventory-tri-program) \
+            was created through the 1986 Emergency Planning and Community Right-to-Act (EPCRA) to provide information about air, land, \
+            and water releases of toxic chemicals from industrial and federal facilities. The current ***TRI toxic chemicals list contains\
+            794 individually listed chemicals and 33 chemical categories***. ")
+    st.write("Refer to EPA guidance (https://guideme.epa.gov/ords/guideme_ext/f?p=guideme:home) for detailed information regarding reporting \
+            requirements. If a facility meets all of three criteria, it must report for each chemical for which the reporting requirement \
+            is triggered. These include that it is (1) within a covered industy sector (as identified by six-digit North American \
+            Classification System or NAICS codes); (2) employs 10 or more full-time equivalent employees; and (3) manufactures, processes,\
+            or otherwise uses a TRI-listed chemical in the quantities above threshold levels in a given year. It should be noted that \
+            other air emissions from a facility that do not meet the reporting requirements in a given year would not be represented in \
+            the TRI. Data are reported annually. ")
+
+    st.write(" ## Objectives of this Platform")
+
+    st.write(" This interactive platform was developed to provide information about TRI air emissions (stack + fugitive) from faciltiies \
+            in SETx counties (Jefferson, Orange, Hardin, Jasper, Newton) for a user-selected year beginning in 1987.\
+            TRI data are obtained directly from the EPA through the TRI Basic Data Files:\
+            https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present. ")
+    st.write("""  The platform was designed to enable DOE SETx-UIFL project team members to: 
+    1. Easily ingest annual TRI air data
+    2. Conduct analyses relevant to air quality and cross-theme research ")
+    3. Provide supporting information for interactions with stakeholders in SETx.""")
+
+    st.write(" #### Using the platform, you can determine:")
+    st.write(""" 1. Air emissions in total and by individual counties in Texas
+    2. TRI-listed chemicals and their quantitites emitted in SETx
+    3. Industrial sectors and facilities that contribute to emissions of all or selected chemicals in SETx
+    4. Chemical profiles of emissions from industrial sectors in SETx
+    5. Chemical profiles of emissions from indiviudal facilities in SETx """)
 
     st.write("# TRI BASICS DOWNLOAD")
     st.write(" *Note the most recent emission inventory data can be subject to updates by EPA.*")
     st.write("### Select a TRI Year of Interest (1987 - Most Recent Available Release)")
 
     # # %%
-    year = slider = st.slider(
+    with st.form(key='download'):
+        year = slider = st.slider(
         value=2022,
         min_value=1987,
         max_value=2022,
         step=1,
-        label='Year of Emissions:',
-        
-    )
+        label='Year of Emissions:')
+        region =st.selectbox(
+            options=["TX", 'US'],
+            index=0,
+            label='Region of Interest',
+            disabled=False,    )
+        submit = st.form_submit_button('Get Data')
 
-    region =st.selectbox(
-        options=["TX", 'US'],
-        index=0,
-        label='Region of Interest',
-        disabled=False,
-        
-    )
-
-
-
-
-
-    NAICS, counties, TRI = download()
+    NAICS, counties, TRI = download(year, region)
 
     st.write('## Calculate Total Air Emissions (Stack + Fugitive) by Chemical for Each Texas Facility ')
     TRI['Total Air (lbs)']= TRI.apply(lambda x: calculate_Total_Air(x), axis=1)
