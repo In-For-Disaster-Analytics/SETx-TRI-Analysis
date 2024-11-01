@@ -13,7 +13,8 @@ import plotly.graph_objects as go         # initiate notebook for offline plot
 
 def remove_numbers_and_hyphen_with_space(text):
      return re.sub(r'\d+\. ', '', text)
-# @st.cache_data
+
+@st.cache_data
 def download(year, region):
    
         TRI = pd.read_csv(f'https://data.epa.gov/efservice/downloads/tri/mv_tri_basic_download/{year}_{region}/csv')
@@ -179,14 +180,15 @@ def display_NAICS_profile( TRI ):
         row = st.selectbox(options = geo.keys(),
                         label='Select what you want to profile ',
         )
-        st.session_state.init = st.session_state.row
+        st.session_state.init = row
         columns = st.selectbox(options=geo[st.session_state.init],
+                               index=0,
                             label='Select how you want it profiled (Columns) ',
                         )
 
         selection  = st.multiselect(
-                                options=TRI.loc[(TRI['COUNTY'].isin(setx_counties)),'NAICS Description'].unique(),
-                                default=['Paperboard Mills', 'Petrochemical Manufacturing'],
+                                options=TRI.loc[(TRI['COUNTY'].isin(setx_counties)),columns].unique(),
+                             
                             
                                 label="Select columns you want to view:"
                             )
@@ -195,7 +197,7 @@ def display_NAICS_profile( TRI ):
     st.write(f'Select which {row} to profile by {columns} sector.',)
     if len(selection)==0:
         selection= TRI.loc[(TRI['COUNTY'].isin(setx_counties)),columns].unique().tolist()[:3]
-
+    st.write(columns)
     st.dataframe( TRI.loc[(TRI['COUNTY'].isin(setx_counties)) & (TRI[columns].isin(selection))& \
                     (TRI['CHEMICAL'])].pivot_table(index=row, 
                 columns=columns, values='Total Air (Tons)', aggfunc='sum', fill_value=0))
@@ -240,7 +242,6 @@ if __name__ == '__main__':
     st.write(" *Note the most recent emission inventory data can be subject to updates by EPA.*")
     st.write("### Select a TRI Year of Interest (1987 - Most Recent Available Release)")
 
-    # # %%
     with st.form(key='download'):
         year = slider = st.slider(
         value=2022,
@@ -253,7 +254,7 @@ if __name__ == '__main__':
             index=0,
             label='Region of Interest',
             disabled=False,    )
-        submit = st.form_submit_button('Get Data')
+        st.form_submit_button(label='Get Data')
 
     NAICS, counties, TRI = download(year, region)
 
