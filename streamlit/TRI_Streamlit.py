@@ -19,8 +19,8 @@ def download(year, region):
         TRI = pd.read_csv(f'https://data.epa.gov/efservice/downloads/tri/mv_tri_basic_download/{year}_{region}/csv')
 
    
-        NAICS = pd.read_excel("../2022_NAICS_Descriptions.xlsx")
-        counties = gpd.read_file('../Texas_County_Boundaries_Detailed_-8523147194422581030.geojson')
+        NAICS = pd.read_excel("https://github.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/raw/refs/heads/main/streamlit/2022_NAICS_Descriptions.xlsx")
+        counties = gpd.read_file('https://github.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/raw/refs/heads/main/streamlit/Texas_County_Boundaries_Detailed_-8523147194422581030.geojson')
         counties['Counties']=(counties.CNTY_NM.str.upper())
         TRI.columns= [remove_numbers_and_hyphen_with_space(c) for c in TRI.columns]
         TRI['NAICS 6-digit']= TRI['PRIMARY NAICS']
@@ -190,7 +190,7 @@ def display_NAICS_profile( TRI ):
                             
                                 label="Select columns you want to view:"
                             )
-        submit_button = st.form_submit_button(label='Submit')
+        st.form_submit_button(label='Submit')
 
     st.write(f'Select which {row} to profile by {columns} sector.',)
     if len(selection)==0:
