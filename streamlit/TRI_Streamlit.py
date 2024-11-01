@@ -15,18 +15,19 @@ def remove_numbers_and_hyphen_with_space(text):
      return re.sub(r'\d+\. ', '', text)
 # @st.cache_data
 def download(year, region):
-    try:
+   
         TRI = pd.read_csv(f'https://data.epa.gov/efservice/downloads/tri/mv_tri_basic_download/{year}_{region}/csv')
 
    
         NAICS = pd.read_excel("../2022_NAICS_Descriptions.xlsx")
         counties = gpd.read_file('../Texas_County_Boundaries_Detailed_-8523147194422581030.geojson')
+        counties['Counties']=(counties.CNTY_NM.str.upper())
         TRI.columns= [remove_numbers_and_hyphen_with_space(c) for c in TRI.columns]
         TRI['NAICS 6-digit']= TRI['PRIMARY NAICS']
         TRI = TRI.join(NAICS.set_index("Code"), on="PRIMARY NAICS")
         TRI['NAICS Description']= TRI['Title']
         TRI['CHEMICAL']= TRI.apply(lambda x: x['CHEMICAL'][:100], axis=1)
-        counties['Counties']=(counties.CNTY_NM.str.upper())
+        
         TRI['Total Air (lbs)'] = TRI.apply(lambda x: calculate_Total_Air(x), axis=1)
         TRI['Total Air (Tons)']= TRI['Total Air (lbs)']/2000
         if isinstance(TRI, pd.DataFrame):
@@ -34,8 +35,6 @@ def download(year, region):
             st.dataframe(TRI)
         return NAICS, counties, TRI
 
-    except Exception as e:
-        return f"Error downloading data: {str(e)}", None, None
 
 def calculate_Total_Air(x):
     if x['UNIT OF MEASURE']=='Pounds':
