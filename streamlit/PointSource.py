@@ -36,13 +36,13 @@ st.header('List of Point Sources in SETx')
 st.write("This list is designed to aid users in identifying point sources of interest\
           in SETx including their geographic location and industry sector")
 
-df = pd.read_csv("TCEQ_Stars.csv")
-NAICS = pd.read_csv("./NAICS.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/TCEQ_Stars.csv")
+NAICS = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/NAICS.csv")
 NAICS=NAICS[['TCEQ Air Account Number', 'Industry Description']].drop_duplicates()
 df = df.join(NAICS.set_index( 'TCEQ Air Account Number'), on='TCEQ Air Account Number', how='left')
 df['LATITUDE']= df['Latitude (Decimal)']
 df['LONGITUDE']=-df['Longitude (Decimal)']
-iris = pd.read_csv("./iris.csv")
+iris = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/iris.csv")
 iris['CASRN'] = iris['CASRN'].apply(lambda x: str(x).replace("-", ""))
 df = df.join(iris.set_index( 'CASRN'), on='CAS Number', how='left')
 with st.form("NaicsvsIndustry"):
