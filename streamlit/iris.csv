@@ -1,0 +1,181 @@
+﻿Chemical Name,CASRN,Assessment Type,Critical Effect or Tumor Type,WOE Characterization,Toxicity Value Type,Toxicity Value
+Acetaldehyde,75-07-0,Cancer,Nasal squamous cell carcinoma or adenocarcinoma,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,2.2x10-6 per µg/m3
+Acetaldehyde,75-07-0,Noncancer,Degeneration of olfactory epithelium,n/a,RfC,9x10-3 mg/m3
+Acetonitrile,75-05-8,Noncancer,Mortality,n/a,RfC,6x10-2 mg/m3
+Acrolein,107-02-8,Noncancer,Nasal lesions,n/a,RfC,2x10-5 mg/m3
+Acrylamide,79-06-1,Noncancer,Degenerative nerve changes,n/a,RfC,6x10-3 mg/m3
+Acrylamide,79-06-1,Cancer,thyroid tumors and tunica vaginalis mesotheliomas,Likely to be carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,1x10-4 per µg/m3
+Acrylic acid,79-10-7,Noncancer,Degeneration of the nasal olfactory epithelium,n/a,RfC,1x10-3 mg/m3
+Acrylonitrile,107-13-1,Noncancer,Degeneration and inflammation of nasal respiratory epithelium; hyperplasia of mucous secreting cells,n/a,RfC,2x10-3 mg/m3
+Acrylonitrile,107-13-1,Cancer,Respiratory cancer,B1 (Probable human carcinogen - based on limited evidence of carcinogenicity in humans) (1986 guidelines),Inhalation Unit Risk,6.8x10-5 per µg/m3
+Aldrin,309-00-2,Cancer,Liver carcinoma,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,4.9x10-3 per µg/m3
+Allyl chloride,107-05-1,Noncancer,Functional and histological peripheral neurotoxicity,n/a,RfC,1x10-3 mg/m3
+Ammonia,7664-41-7,Noncancer,Decreased lung function and respiratory symptoms,n/a,RfC,5x10-1 mg/m3
+Aniline,62-53-3,Noncancer,"Methemoglobin increase, spleen toxicity",n/a,RfC,1x10-3 mg/m3
+Antimony trioxide,1309-64-4,Noncancer,"Pulmonary toxicity, chronic interstitial inflammation",n/a,RfC,2x10-4 mg/m3
+Aramite,140-57-8,Cancer,Neoplastic liver nodules and carcinomas,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,7.1x10-6 per µg/m3
+"Arsenic, Inorganic",7440-38-2,Cancer,Lung cancer,A (Human carcinogen) (1986 guidelines),Inhalation Unit Risk,4.3x10-3 per µg/m3
+Arsine,7784-42-1,Noncancer,"Increased hemolysis, abnormal RBC morphology, and increased spleen weight",n/a,RfC,5x10-5 mg/m3
+Asbestos,1332-21-4,Cancer,Lung cancer and mesothelioma,A (Human carcinogen) (1986 guidelines),Inhalation Unit Risk,2.3x10-1 per f/mL
+Azobenzene,103-33-3,Cancer,Abdominal cavity sarcomas,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,3.1x10-5 per µg/m3
+Benzene,71-43-2,Noncancer,Decreased lymphocyte count,n/a,RfC,3x10-2 mg/m3
+Benzene,71-43-2,Cancer,Leukemia,A (Human carcinogen) (1986 guidelines) Known/likely human carcinogen (1996 guidelines),Inhalation Unit Risk,2.2x10-6 per µg/m3
+Benzene,71-43-2,Cancer,Leukemia,A (Human carcinogen) (1986 guidelines) Known/likely human carcinogen (1996 guidelines),Inhalation Unit Risk,7.8x10-6 per µg/m3
+Benzidine,92-87-5,Cancer,Bladder tumors,A (Human carcinogen) (1986 guidelines),Inhalation Unit Risk,6.7x10-2 per µg/m3
+Benzo[a]pyrene (BaP),50-32-8,Noncancer,Reduced ovulation rate and ovary weight,n/a,RfC,3x10-6 mg/m3
+Benzo[a]pyrene (BaP),50-32-8,Cancer,"Squamous cell neoplasia in the larynx, pharynx, trachea, nasal cavity, esophagus, and forestomach.",Carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,6x10-4 per µg/m3
+Benzo[a]pyrene (BaP),50-32-8,Noncancer,Decreased embryo/fetal survival,n/a,RfC,2x10-6 mg/m3
+Beryllium and compounds,7440-41-7,Cancer,Lung cancer,B1 (Probable human carcinogen - based on limited evidence of carcinogenicity in humans) (1986 guidelines) Carcinogenic potential cannot be determined (1996 guidelines) Known/likely human carcinogen (1996 guidelines),Inhalation Unit Risk,2.4x10-3 per µg/m3
+Beryllium and compounds,7440-41-7,Noncancer,Beryllium sensitization and progression to CBD,n/a,RfC,2x10-5 mg/m3
+Bis(chloroethyl)ether (BCEE),111-44-4,Cancer,Hepatomas,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,3.3x10-4 per µg/m3
+Bis(chloromethyl)ether (BCME),542-88-1,Cancer,Respiratory tract tumors,A (Human carcinogen) (1986 guidelines),Inhalation Unit Risk,6.2x10-2 per µg/m3
+Bromobenzene,108-86-1,Noncancer,Hepatocellular cytomegaly in female B6C3F1 mice,n/a,RfC,2x10-1 mg/m3 (Subchronic)
+Bromobenzene,108-86-1,Noncancer,Hepatocellular cytomegaly in female B6C3F1 mice,n/a,RfC,6x10-2 mg/m3 (Chronic)
+Bromoform,75-25-2,Cancer,Neoplastic lesions in the large intestine,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,1.1x10-6 per µg/m3
+Bromomethane,74-83-9,Noncancer,Degenerative and proliferative lesions of the olfactory epithelium of the nasal cavity,n/a,RfC,5x10-3 mg/m3
+"1,3-Butadiene",106-99-0,Cancer,Leukemia,Carcinogenic to humans (1999 guidelines),Inhalation Unit Risk,3x10-5 per µg/m3
+"1,3-Butadiene",106-99-0,Noncancer,Ovarian atrophy,n/a,RfC,2x10-3 mg/m3
+Cadmium,7440-43-9,Cancer,"Lung, trachea, bronchus cancer deaths",B1 (Probable human carcinogen - based on limited evidence of carcinogenicity in humans) (1986 guidelines),Inhalation Unit Risk,1.8x10-3 per µg/m3
+Carbon disulfide,75-15-0,Noncancer,Peripheral nervous system dysfunction,n/a,RfC,7x10-1 mg/m3
+Carbon tetrachloride,56-23-5,Cancer,Pheochromocytoma,Likely to be carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,6x10-6 per µg/m3
+Carbon tetrachloride,56-23-5,Noncancer,Fatty changes in the liver,n/a,RfC,1x10-1 mg/m3
+Cerium Oxide and Cerium Compounds,1306-38-3,Noncancer,Increased incidence of alveolar epithelial hyperplasia in the lungs of male and female rats,n/a,RfC,9x10-4 mg/m3
+Chlordane (Technical),12789-03-6,Noncancer,Hepatic effects,n/a,RfC,7x10-4 mg/m3
+Chlordane (Technical),12789-03-6,Cancer,Hepatocellular carcinoma,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines) Known/likely human carcinogen (1996 guidelines),Inhalation Unit Risk,1x10-4 per µg/m3
+Chlorine dioxide,10049-04-4,Noncancer,Vascular congestion and peribronchial edema,n/a,RfC,2x10-4 mg/m3
+"1-Chloro-1,1-difluoroethane",75-68-3,Noncancer,No adverse effects,n/a,RfC,5x101 mg/m3
+2-Chloroacetophenone,532-27-4,Noncancer,Squamous hyperplasia of the nasal respiratory epithelium,n/a,RfC,3x10-5 mg/m3
+Chlorodifluoromethane,75-45-6,Noncancer,"Increased kidney, adrenal and pituitary weights",n/a,RfC,5x101 mg/m3
+Chloroform,67-66-3,Cancer,Hepatocellular carcinoma,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines) Likely to be carcinogenic to humans (1999 guidelines) Not likely to be carcinogenic to humans (1999 guidelines),Inhalation Unit Risk,2.3x10-5 per µg/m3
+Chloroprene,126-99-8,Cancer,"alveolar/ bronchiolar adenoma or carcinoma hemangioma/ hemangiosarcoma (all organs) mammary gland adenocarcinoma, carcinoma, or adenoacanthoma forestomach squamous cell papilloma or carcinoma hepatocellular adenoma or carcinoma Harderian gland adenoma or carcinoma skin sarcoma and Zymbal's gland carcinoma",Likely to be carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,3x10-4 per µg/m3
+Chloroprene,126-99-8,Noncancer,"Increase in incidence of olfactory atrophy, alveolar hyperplasia, and splenic hematopoietic proliferation in male F344/N rats, female F344/N rats, and female B6C3F1 mice, respectively",n/a,RfC,2x10-2 mg/m3
+Chromium(VI),18540-29-9,Cancer,Lung cancer,Carcinogenic to humans (2005 guidelines) Likely to be carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,0.018 per µg/m3
+Chromium(VI),18540-29-9,Noncancer,Ulcerated nasal septum in humans,n/a,RfC,3x10-5 mg/m3
+Coke oven emissions,,Cancer,Respiratory cancer,A (Human carcinogen) (1986 guidelines),Inhalation Unit Risk,6.2x10-4 per µg/m3
+Cumene,98-82-8,Noncancer,Increased kidney weights in female rats and adrenal weights in male and female rats,n/a,RfC,4x10-1 mg/m3
+Cyclohexane,110-82-7,Noncancer,Reduced pup weights in the F1 and F2 generations,n/a,RfC,6 mg/m3
+"1,2-Dibromo-3-chloropropane (DBCP)",96-12-8,Noncancer,Testicular effects,n/a,RfC,2x10-4 mg/m3
+"1,2-Dibromoethane",106-93-4,Noncancer,Nasal inflammation,n/a,RfC,9x10-3 mg/m3
+"1,2-Dibromoethane",106-93-4,Cancer,"Nasal cavity (includes adenoma, adenocarcinoma, papillary adenoma, squamous cell carcinoma, and or/papilloma), hemangiosarcomas, mesotheliomas",Likely to be carcinogenic to humans (1999 guidelines),Inhalation Unit Risk,3x10-4 per µg/m3 (central tendency estimate)
+"1,2-Dibromoethane",106-93-4,Cancer,"Nasal cavity (includes adenoma, adenocarcinoma, papillary adenoma, squamous cell carcinoma, and or/papilloma), hemangiosarcomas, mesotheliomas",Likely to be carcinogenic to humans (1999 guidelines),Inhalation Unit Risk,6x10-4 per µg/m3 (95% upper bound)
+"1,4-Dichlorobenzene",106-46-7,Noncancer,Increased liver weights in P1 males,n/a,RfC,8x10-1 mg/m3
+"p,p'-Dichlorodiphenyltrichloroethane (DDT)",50-29-3,Cancer,"Liver tumors, benign and malignant",B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,9.7x10-5 per µg/m3
+"1,2-Dichloroethane",107-06-2,Cancer,Hemangiosarcomas,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,2.6x10-5 per µg/m3
+"1,1-Dichloroethylene (1,1-DCE)",75-35-4,Noncancer,Liver toxicity (fatty change),n/a,RfC,2x10-1 mg/m3
+Dichloromethane,75-09-2,Noncancer,Hepatic effects (hepatic vacuolation),n/a,RfC,6x10-1 mg/m3
+Dichloromethane,75-09-2,Cancer,"Hepatocellular carcinomas or adenomas, bronchoalveolar carcinomas or adenomas",Likely to be carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,1x10-8 per µg/m3
+"1,2-Dichloropropane",78-87-5,Noncancer,Hyperplasia of the nasal mucosa,n/a,RfC,4x10-3 mg/m3
+"1,3-Dichloropropene",542-75-6,Cancer,Bronchioalveolar adenoma,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines) Known/likely human carcinogen (1996 guidelines),Inhalation Unit Risk,4x10-6 per µg/m3
+"1,3-Dichloropropene",542-75-6,Noncancer,Hypertrophy/ hyperplasia of the nasal respiratory epithelium,n/a,RfC,2x10-2 mg/m3
+Dichlorvos,62-73-7,Noncancer,Decreased brain cholinesterase activity,n/a,RfC,5x10-4 mg/m3
+Dieldrin,60-57-1,Cancer,Liver carcinoma,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,4.6x10-3 per µg/m3
+Diesel engine exhaust,,Noncancer,Pulmonary inflammation and histopathology,n/a,RfC,5x10-3 mg/m3
+"1,1-Difluoroethane",75-37-6,Noncancer,No adverse effects observed,n/a,RfC,4x101 mg/m3
+"N,N-Dimethylformamide",68-12-2,Noncancer,Digestive disturbances and minimal hepatic changes suggestive of liver abnormalities,n/a,RfC,3x10-2 mg/m3
+"1,4-Dioxane",123-91-1,Noncancer,Atrophy and respiratory metaplasia of the olfactory epithelium,n/a,RfC,3x10-2 mg/m3
+"1,4-Dioxane",123-91-1,Cancer,"Multiple (nasal, liver, kidney, peritoneal, mammary gland, and Zymbal gland)",Likely to be carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,5x10-6 per µg/m3
+"1,2-Diphenylhydrazine",122-66-7,Cancer,Hepatocellular carcinomas and neoplastic liver nodules,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,2.2x10-4 per µg/m3
+Epichlorohydrin,106-89-8,Noncancer,Changes in the nasal turbinates,n/a,RfC,1x10-3 mg/m3
+Epichlorohydrin,106-89-8,Cancer,Nasal cavity tumors,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,1.2x10-6 per µg/m3
+"1,2-Epoxybutane (EBU)",106-88-7,Noncancer,Degenerative lesions of the nasal cavity,n/a,RfC,2x10-2 mg/m3
+2-Ethoxyethanol,110-80-5,Noncancer,"Decreased testis weight, seminiferous tubule degeneration and decreased hemoglobin",n/a,RfC,2x10-1 mg/m3
+Ethyl Tertiary Butyl Ether (ETBE),637-92-3,Noncancer,Increased absolute kidney weight in female rats,n/a,RfC,4x101 mg/m3
+Ethyl Tertiary Butyl Ether (ETBE),637-92-3,Cancer,Hepatocellular adenomas and carcinomas,Suggestive evidence of carcinogenic potential (2005 guidelines),Inhalation Unit Risk,8x10-5 per mg/m3
+Ethyl chloride,75-00-3,Noncancer,Delayed fetal ossification,n/a,RfC,1x101 mg/m3
+Ethylbenzene,100-41-4,Noncancer,Developmental toxicity,n/a,RfC,1 mg/m3
+Ethylene glycol monobutyl ether (EGBE) (2-Butoxyethanol),111-76-2,Noncancer,Hemosiderin deposition in the liver,n/a,RfC,1.6 mg/m3
+Ethylene oxide,75-21-8,Cancer,"Lymphoid cancer, (female) breast cancer",Carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,3x10-3 per µg/m3
+Formaldehyde,50-00-0,Cancer,"Nasopharyngeal cancer, sinonasal cancer, myeloid leukemia",Carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,1.1x10-5 per µg/m3
+Formaldehyde,50-00-0,Noncancer,"Decreased pulmonary function, prevalence of current asthma or degree of asthma control, and allergic conditions in children (See Note)",n/a,RfC,0.007 mg/m3
+Heptachlor,76-44-8,Cancer,Hepatocellular carcinomas,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,1.3x10-3 per µg/m3
+Heptachlor epoxide,1024-57-3,Cancer,Hepatocellular carcinomas,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,2.6x10-3 per µg/m3
+Hexachlorobenzene,118-74-1,Cancer,Hepatocellular carcinoma,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,4.6x10-4 per µg/m3
+Hexachlorobutadiene,87-68-3,Cancer,Renal tubular adenomas and adenocarcinomas,C (Possible human carcinogen) (1986 guidelines),Inhalation Unit Risk,2.2x10-5 per µg/m3
+alpha-Hexachlorocyclohexane (alpha-HCH),319-84-6,Cancer,Hepatic nodules and hepatocellular carcinomas,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,1.8x10-3 per µg/m3
+beta-Hexachlorocyclohexane (beta-HCH),319-85-7,Cancer,Hepatic nodules and hepatocellular carcinomas,C (Possible human carcinogen) (1986 guidelines),Inhalation Unit Risk,5.3x10-4 per µg/m3
+technical Hexachlorocyclohexane (t-HCH),608-73-1,Cancer,Liver nodules and hepatocellular carcinomas,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,5.1x10-4 per µg/m3
+Hexachlorocyclopentadiene (HCCPD),77-47-4,Noncancer,Suppurative inflammation of the nose,n/a,RfC,2x10-4 mg/m3
+"Hexachlorodibenzo-p-dioxin (HxCDD), mixture of 1,2,3,6,7,8-HxCDD and 1,2,3,7,8,9-HxCDD",57653-85-7,Cancer,Liver tumors (adenomas and carcinomas; neoplastic nodules and hepatocellular carcinomas),B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,1.3 per µg/m3
+Hexachloroethane,67-72-1,Noncancer,Neurotoxicity (tremors and ruffled pelt),n/a,RfC,3x10-2 mg/m3
+"1,6-Hexamethylene diisocyanate",822-06-0,Noncancer,Degeneration of olfactory epithelium,n/a,RfC,1x10-5 mg/m3
+n-Hexane,110-54-3,Noncancer,Peripheral neuropathy (decreased MCV at 12 weeks),n/a,RfC,7x10-1 mg/m3
+2-Hexanone,591-78-6,Noncancer,Motor conduction velocity of the sciatic-tibial nerve,n/a,RfC,3x10-2 mg/m3
+Hydrazine/Hydrazine sulfate,302-01-2,Cancer,Nasal cavity adenoma or adenocarcinoma,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,4.9x10-3 per µg/m3
+Hydrogen Cyanide and Cyanide Salts,Various,Noncancer,Thyroid enlargement and altered iodide uptake,n/a,RfC,8x10-4 mg/m3
+Hydrogen chloride,7647-01-0,Noncancer,Hyperplasia of nasal mucosa larynx and trachea,n/a,RfC,2x10-2 mg/m3
+Hydrogen sulfide,6/4/83,Noncancer,Nasal lesions of the olfactory mucosa,n/a,RfC,2x10-3 mg/m3
+Libby Amphibole Asbestos,1318-09-8,Cancer,Cancer mortality from lung cancer and mesothelioma,Carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,1.7x10-1 per fiber/cc
+Libby Amphibole Asbestos,1318-09-8,Noncancer,Localized pleural thickening,n/a,RfC,9x10-5 fiber/cc
+Manganese,7439-96-5,Noncancer,Impairment of neurobehavioral function,n/a,RfC,5x10-5 mg/m3
+"Mercury, elemental",7439-97-6,Noncancer,Hand tremor; increases in memory disturbances; slight subjective and objective evidence of autonomic dysfunction,n/a,RfC,3x10-4 mg/m3
+Methanol,67-56-1,Noncancer,Reduced brain weight in rat pups at 6 weeks of age,n/a,RfC,2x101 mg/m3
+2-Methoxyethanol,109-86-4,Noncancer,Testicular effects,n/a,RfC,2x10-2 mg/m3
+Methyl chloride,74-87-3,Noncancer,Cerebellar lesions,n/a,RfC,9x10-2 mg/m3
+Methyl ethyl ketone (MEK),78-93-3,Noncancer,Developmental toxicity (skeletal variations),n/a,RfC,5 mg/m3
+Methyl isobutyl ketone (MIBK),108-10-1,Noncancer,"Reduced fetal body weight, skeletal variations, and increased fetal death in mice, and skeletal variations in rats.",n/a,RfC,3 mg/m3
+Methyl methacrylate,80-62-6,Noncancer,Degeneration/ atrophy of olfactory epithelium (male rats),n/a,RfC,7x10-1 mg/m3
+Methyl tert-butyl ether (MTBE),1634-04-4,Noncancer,"Increased absolute and relative liver and kidney weights and increased severity of spontaneous renal lesions (females), increased prostration (females), and swollen periocular tissue (males and females)",n/a,RfC,3 mg/m3
+Methylene Diphenyl Diisocyanate (monomeric MDI) and polymeric MDI (PMDI),101-68-8,Noncancer,Hyperplasia of olfactory epithelium,n/a,RfC,6x10-4 mg/m3
+Naphthalene,91-20-3,Noncancer,"Nasal effects: hyperplasia and metaplasia in respiratory and olfactory epithelium, respectively",n/a,RfC,3x10-3 mg/m3
+Nickel refinery dust,,Cancer,Lung cancer,A (Human carcinogen) (1986 guidelines),Inhalation Unit Risk,2.4x10-4 per µg/m3
+Nickel subsulfide,12035-72-2,Cancer,Lung cancer,A (Human carcinogen) (1986 guidelines),Inhalation Unit Risk,4.8x10-4 per µg/m3
+Nitrobenzene,98-95-3,Cancer,"Liver hepatocellular adenomas or carcinomas, kidney tubular adenomas or carcinomas, thyroid follicular cell adenomas or carcinomas",Likely to be carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,4x10-5 per µg/m3
+Nitrobenzene,98-95-3,Noncancer,Bronchiolization of the alveoli and olfactory degeneration,n/a,RfC,9x10-3 mg/m3
+2-Nitropropane,79-46-9,Noncancer,Liver focal vacuolization and nodules,n/a,RfC,2x10-2 mg/m3
+N-Nitroso-di-n-butylamine,924-16-3,Cancer,Bladder and esophagus tumors,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,1.6x10-3 per µg/m3
+N-Nitrosodiethylamine,55-18-5,Cancer,Liver tumors,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,4.3x10-2 per µg/m3
+N-Nitrosodimethylamine,62-75-9,Cancer,Liver tumors,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,1.4x10-2 per µg/m3
+N-Nitrosopyrrolidine,930-55-2,Cancer,Hepatocellular carcinoma and adenoma,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,6.1x10-4 per µg/m3
+Phosgene,75-44-5,Noncancer,Collagen staining indicative of fibrosis,n/a,RfC,3x10-4 mg/m3
+Phosphine,7803-51-2,Noncancer,Decreased body weight,n/a,RfC,3x10-4 mg/m3
+Phosphoric acid,7664-38-2,Noncancer,Bronchiolar fibrosis,n/a,RfC,1x10-2 mg/m3
+Polychlorinated Biphenyls (PCBs),1336-36-3,Cancer,"Liver hepatocellular adenomas, carcinomas, cholangiomas, or cholangiocarcinomas",B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,1x10-4 per µg/m3 (Applies to inhalation of evaporated congeners)
+Propionaldehyde,123-38-6,Noncancer,Atrophy of olfactory epithelium,n/a,RfC,8x10-3 mg/m3
+Propylene glycol monomethyl ether (PGME),107-98-2,Noncancer,Mild reversible sedation,n/a,RfC,2 mg/m3
+Propylene oxide,75-56-9,Cancer,Nasal cavity hemangioma or hemangiosarcoma,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,3.7x10-6 per µg/m3
+Propylene oxide,75-56-9,Noncancer,Nest-like infolds of the nasal respiratory epithelium,n/a,RfC,3x10-2 mg/m3
+Styrene,100-42-5,Noncancer,CNS effects,n/a,RfC,1 mg/m3
+"1,1,1,2-Tetrachloroethane",630-20-6,Cancer,Hepatocellular adenoma or carcinoma,C (Possible human carcinogen) (1986 guidelines),Inhalation Unit Risk,7.4x10-6 per µg/m3
+Tetrachloroethylene (Perchloroethylene),127-18-4,Noncancer,(See Note),n/a,RfC,4x10-2 mg/m3
+Tetrachloroethylene (Perchloroethylene),127-18-4,Cancer,Hepatocellular adenomas or carcinomas,Likely to be carcinogenic to humans (2005 guidelines),Oral Slope Factor,0
+"1,1,1,2-Tetrafluoroethane",811-97-2,Noncancer,Leydig cell hyperplasia,n/a,RfC,8x101 mg/m3
+Tetrahydrofuran,109-99-9,Noncancer,"Increased liver weight and centrilobular cytomegaly, CNS effects (narcosis)",n/a,RfC,2 mg/m3
+Toluene,108-88-3,Noncancer,Neurological effects in occupationally-exposed workers,n/a,RfC,5 mg/m3
+"2,4-/2,6-Toluene diisocyanate mixture (TDI)",26471-62-5,Noncancer,Chronic lung-function decline,n/a,RfC,7x10-5 mg/m3
+Toxaphene,8001-35-2,Cancer,Hepatocellular carcinomas and neoplastic nodules,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,3.2x10-4 per µg/m3
+"1,1,1-Trichloroethane",71-55-6,Noncancer,Performance on neurobehavioral tests,n/a,RfC,7 mg/m3 (Acute: 4 hours)
+"1,1,1-Trichloroethane",71-55-6,Noncancer,Liver histopathologic changes,n/a,RfC,5 mg/m3 (Chronic)
+"1,1,1-Trichloroethane",71-55-6,Noncancer,Liver histopathologic changes,n/a,RfC,5 mg/m3 (Subchronic)
+"1,1,1-Trichloroethane",71-55-6,Noncancer,Performance on neurobehavioral tests,n/a,RfC,5 mg/m3 (Short-term)
+"1,1,1-Trichloroethane",71-55-6,Noncancer,Performance on neurobehavioral tests,n/a,RfC,9 mg/m3 (Acute: 1 hour)
+"1,1,1-Trichloroethane",71-55-6,Noncancer,Performance on neurobehavioral tests,n/a,RfC,7 mg/m3 (Acute: 8 hours)
+"1,1,1-Trichloroethane",71-55-6,Noncancer,Performance on neurobehavioral tests,n/a,RfC,6 mg/m3 (Acute: 24 hours)
+"1,1,2-Trichloroethane",79-00-5,Cancer,Hepatocellular carcinoma,C (Possible human carcinogen) (1986 guidelines),Inhalation Unit Risk,1.6x10-5 per µg/m3
+Trichloroethylene,79-01-6,Cancer,"Renal cell carcinoma, non-Hodgkin's lymphoma, and liver tumors",Carcinogenic to humans (2005 guidelines),Inhalation Unit Risk,4.1x10-6 per µg/m3
+Trichloroethylene,79-01-6,Noncancer,(See Note),n/a,RfC,2x10-3 mg/m3
+"2,4,6-Trichlorophenol",88-06-2,Cancer,Leukemia,B2 (Probable human carcinogen - based on sufficient evidence of carcinogenicity in animals) (1986 guidelines),Inhalation Unit Risk,3.1x10-6 per µg/m3
+"1,2,3-Trichloropropane",96-18-4,Noncancer,peribronchial lymphoid hyperplasia in male rats,n/a,RfC,3x10-4 mg/m3
+Triethylamine,121-44-8,Noncancer,Inflammation of the nasal passage,n/a,RfC,7x10-3 mg/m3
+"1,2,3-Trimethylbenzene",526-73-8,Noncancer,Decreased pain sensitivity in male Wistar rats,n/a,RfC,6x10-2 mg/m3 (Chronic)
+"1,2,3-Trimethylbenzene",526-73-8,Noncancer,Decreased pain sensitivity in male Wistar rats,n/a,RfC,2x10-1 mg/m3 (Subchronic)
+"1,2,3-Trimethylbenzene",526-73-8,Noncancer,Decreased segmented neutrophils,n/a,RfC,6x10-2 mg/m3
+"1,2,3-Trimethylbenzene",526-73-8,Noncancer,Inflammatory lung lesions,n/a,RfC,2x10-1 mg/m3
+"1,2,4-Trimethylbenzene",95-63-6,Noncancer,Decreased pain sensitivity in male Wistar rats,n/a,RfC,6x10-2 mg/m3 (Chronic)
+"1,2,4-Trimethylbenzene",95-63-6,Noncancer,Decreased pain sensitivity in male Wistar rats,n/a,RfC,2x10-1 mg/m3 (Subchronic)
+"1,2,4-Trimethylbenzene",95-63-6,Noncancer,Decreased clotting time,n/a,RfC,8x10-2 mg/m3
+"1,2,4-Trimethylbenzene",95-63-6,Noncancer,Inflammatory lung lesions,n/a,RfC,2x10-1 mg/m3
+"1,2,4-Trimethylbenzene",95-63-6,Noncancer,Decreased maternal weight,n/a,RfC,3 mg/m3
+"1,2,4-Trimethylbenzene",95-63-6,Noncancer,Decreased fetal weight,n/a,RfC,4 mg/m3
+"1,3,5-Trimethylbenzene",108-67-8,Noncancer,Decreased maternal weight,n/a,RfC,4x10-1 mg/m3
+"1,3,5-Trimethylbenzene",108-67-8,Noncancer,Decreased pain sensitivity in male Wistar rats,n/a,RfC,2x10-1 mg/m3 (Subchronic)
+"1,3,5-Trimethylbenzene",108-67-8,Noncancer,Decreased pain sensitivity in male Wistar rats,n/a,RfC,6x10-2 mg/m3 (Chronic)
+"1,3,5-Trimethylbenzene",108-67-8,Noncancer,Decreased fetal weight,n/a,RfC,4 mg/m3
+Vinyl acetate,108-05-4,Noncancer,Nasal epithelial lesions,n/a,RfC,2x10-1 mg/m3
+Vinyl bromide,593-60-2,Noncancer,"Hypertrophy, basophilic and eosinophilic foci, in the liver",n/a,RfC,3x10-3 mg/m3
+Vinyl chloride,75-01-4,Cancer,"Liver angiosarcomas, angiomas, hepatomas, and neoplastic nodules",A (Human carcinogen) (1986 guidelines) Known/likely human carcinogen (1996 guidelines),Inhalation Unit Risk,8.8x10-6 per µg/m3 (Continuous lifetime exposure from birth)
+Vinyl chloride,75-01-4,Cancer,"Liver angiosarcomas, angiomas, hepatomas, and neoplastic nodules",A (Human carcinogen) (1986 guidelines) Known/likely human carcinogen (1996 guidelines),Inhalation Unit Risk,4.4x10-6 per µg/m3 (Continuous lifetime exposure during adulthood)
+Vinyl chloride,75-01-4,Cancer,"Liver angiosarcomas, angiomas, hepatomas, and neoplastic nodules",A (Human carcinogen) (1986 guidelines) Known/likely human carcinogen (1996 guidelines),Inhalation Unit Risk,8.8x10-6 per µg/m3 (Continuous lifetime exposure from birth)
+Vinyl chloride,75-01-4,Noncancer,Liver cell polymorphism,n/a,RfC,1x10-1 mg/m3
+Vinyl chloride,75-01-4,Cancer,"Liver angiosarcomas, angiomas, hepatomas, and neoplastic nodules",A (Human carcinogen) (1986 guidelines) Known/likely human carcinogen (1996 guidelines),Inhalation Unit Risk,4.4x10-6 per µg/m3 (Continuous lifetime exposure during adulthood)
+Xylenes,1330-20-7,Noncancer,Impaired motor coordination (decreased rotarod performance),n/a,RfC,1x10-1 mg/m3
+tert-Butyl Alcohol (tBA),75-65-0,Noncancer,Increased severity of nephropathy,n/a,RfC,5 mg/m3

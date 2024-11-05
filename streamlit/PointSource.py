@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
-
+from streamlit_folium import st_folium
+import folium
+st.set_page_config(layout="wide")
 st.header('Point Source Emissions Reports for SETx')
 st.write("This cookbook provides emissions data for point sources in Southeast Texas (SETx) counties\
           (Jefferson, Orange, Hardin, Newton, and Jasper) that met the Texas Commission on\
@@ -35,4 +37,46 @@ st.write("This list is designed to aid users in identifying point sources of int
           in SETx including their geographic location and industry sector")
 
 df = pd.read_csv("TCEQ_Stars.csv")
-st.dataframe(df.loc[df['Year']==2022])
+NAICS = pd.read_csv("./NAICS.csv")
+NAICS=NAICS[['TCEQ Air Account Number', 'Industry Description']].drop_duplicates()
+df = df.join(NAICS.set_index( 'TCEQ Air Account Number'), on='TCEQ Air Account Number', how='left')
+df['LATITUDE']= df['Latitude (Decimal)']
+df['LONGITUDE']=-df['Longitude (Decimal)']
+iris = pd.read_csv("./iris.csv")
+iris['CASRN'] = iris['CASRN'].apply(lambda x: str(x).replace("-", ""))
+df = df.join(iris.set_index( 'CASRN'), on='CAS Number', how='left')
+with st.form("NaicsvsIndustry"):
+  select_industry = st.selectbox("Select to use either Industry code or Facility Name",['Industry Description', 'Organization'] )
+  submitted_ind = st.form_submit_button("Submit")
+ 
+st.write("Select a either the industry or facility name above to view emissions data")
+
+
+with st.form("table"):
+  select = st.selectbox("Select Code", df[select_industry].sort_values().unique())
+  submitted = st.form_submit_button("Submit")
+  # if submitted:
+  #   columns = ['Organization', 'Site',  'TCEQ Contaminant Name', 'Annual Emissions (tpy)', 'Ozone Season Emissions (ppd) ', 'Emissions From SSMS (tpy)', 'Emission Events (tpy)']
+  #   st.dataframe(df.loc[(df['Year']==2022) & (df[select_industry]==select), columns])
+
+  #   st.map(df.loc[(df['Year']==2022) & (df[select_industry]==select) ])
+  if submitted:
+    columns = ['Organization', 'Site', 'TCEQ Contaminant Name', 'Annual Emissions (tpy)', 
+               'Ozone Season Emissions (ppd) ', 'Emissions From SSMS (tpy)', 'Emission Events (tpy)','Toxicity Value Type'	,'Toxicity Value']
+    st.dataframe(df.loc[(df['Year']==2022) & (df[select_industry]==select), columns])
+    
+    filtered_df = df.loc[(df['Year']==2022) & (df[select_industry]==select)]
+    m = folium.Map(location=[filtered_df['LATITUDE'].mean(), filtered_df['LONGITUDE'].mean()], 
+                  zoom_start=10)
+    
+    for idx, row in filtered_df.iterrows():
+        folium.CircleMarker(
+            location=[row['LATITUDE'], row['LONGITUDE']],
+            popup=row['Organization'],
+            tooltip=row['Site'],
+            radius=8,
+            color='red',
+            fill=True
+        ).add_to(m)
+    
+    st_folium(m, width=800)
