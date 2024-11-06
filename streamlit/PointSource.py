@@ -36,17 +36,25 @@ st.header('List of Point Sources in SETx')
 st.write("This list is designed to aid users in identifying point sources of interest\
           in SETx including their geographic location and industry sector")
 
+st.image("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/emissionInvetoryReq.jpg", 
+         caption="TCEQ emission inventory reporting \
+         requirements for reporting year 2022. Source: \
+          https://www.tceq.texas.gov/downloads/air-quality/point-source/2022reporting_map.pdf")
+
+
+
 df = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/TCEQ_Stars.csv")
 NAICS = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/NAICS.csv")
 NAICS=NAICS[['TCEQ Air Account Number', 'Industry Description']].drop_duplicates()
 df = df.join(NAICS.set_index( 'TCEQ Air Account Number'), on='TCEQ Air Account Number', how='left')
 df['LATITUDE']= df['Latitude (Decimal)']
 df['LONGITUDE']=-df['Longitude (Decimal)']
+df['Site']= df['Organization']+" "+df['Site']
 iris = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/iris.csv")
 iris['CASRN'] = iris['CASRN'].apply(lambda x: str(x).replace("-", ""))
 df = df.join(iris.set_index( 'CASRN'), on='CAS Number', how='left')
 with st.form("NaicsvsIndustry"):
-  select_industry = st.selectbox("Select to use either Industry code or Facility Name",['Industry Description', 'Organization'] )
+  select_industry = st.selectbox("Select to use either Industry code or Facility Name",['Industry Description', 'Site'] )
   submitted_ind = st.form_submit_button("Submit")
  
 st.write("Select a either the industry or facility name above to view emissions data")
@@ -55,14 +63,10 @@ st.write("Select a either the industry or facility name above to view emissions 
 with st.form("table"):
   select = st.selectbox("Select Code", df[select_industry].sort_values().unique())
   submitted = st.form_submit_button("Submit")
-  # if submitted:
-  #   columns = ['Organization', 'Site',  'TCEQ Contaminant Name', 'Annual Emissions (tpy)', 'Ozone Season Emissions (ppd) ', 'Emissions From SSMS (tpy)', 'Emission Events (tpy)']
-  #   st.dataframe(df.loc[(df['Year']==2022) & (df[select_industry]==select), columns])
-
-  #   st.map(df.loc[(df['Year']==2022) & (df[select_industry]==select) ])
   if submitted:
-    columns = ['Organization', 'Site', 'TCEQ Contaminant Name', 'Annual Emissions (tpy)', 
-               'Ozone Season Emissions (ppd) ', 'Emissions From SSMS (tpy)', 'Emission Events (tpy)','Toxicity Value Type'	,'Toxicity Value']
+    columns = ['Year', 'County','Site', 'TCEQ Contaminant Name', 'Annual Emissions (tpy)', 
+               'Ozone Season Emissions (ppd) ', 'Emissions From SSMS (tpy)', 'Emission Events (tpy)',
+               'Toxicity Value Type'	,'Toxicity Value', 'LATITUDE', 'LONGITUDE', 'Is Hazardous Air Pollutant (Y/N)?', 'Is VOC? (Y)?',]
     st.dataframe(df.loc[(df['Year']==2022) & (df[select_industry]==select), columns])
     
     filtered_df = df.loc[(df['Year']==2022) & (df[select_industry]==select)]
