@@ -49,7 +49,7 @@ NAICS=NAICS[['TCEQ Air Account Number', 'Industry Description']].drop_duplicates
 df = df.join(NAICS.set_index( 'TCEQ Air Account Number'), on='TCEQ Air Account Number', how='left')
 df['LATITUDE']= df['Latitude (Decimal)']
 df['LONGITUDE']=-df['Longitude (Decimal)']
-df['Site']= df['Organization']+" "+df['Site']
+df['Site']= df['Organization']+",  "+df['Site']
 iris = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/iris.csv")
 iris['CASRN'] = iris['CASRN'].apply(lambda x: str(x).replace("-", ""))
 df = df.join(iris.set_index( 'CASRN'), on='CAS Number', how='left')
