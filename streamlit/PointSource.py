@@ -64,10 +64,14 @@ with st.form("table"):
   select = st.selectbox("Select Code", df[select_industry].sort_values().unique())
   submitted = st.form_submit_button("Submit")
   if submitted:
-    columns = ['Year', 'County','Site', 'TCEQ Contaminant Name', 'Annual Emissions (tpy)', 
+    columns = ['Year', 'County','Site', 'LATITUDE', 'LONGITUDE', 'TCEQ Contaminant Name', 'Annual Emissions (tpy)', 
                'Ozone Season Emissions (ppd) ', 'Emissions From SSMS (tpy)', 'Emission Events (tpy)',
-               'Toxicity Value Type'	,'Toxicity Value', 'LATITUDE', 'LONGITUDE', 'Is Hazardous Air Pollutant (Y/N)?', 'Is VOC? (Y)?',]
-    st.dataframe(df.loc[(df['Year']==2022) & (df[select_industry]==select), columns])
+               'Toxicity Value Type'	,'Toxicity Value', 'Is Hazardous Air Pollutant (Y/N)?', 'Is VOC? (Y)?',]
+    st.dataframe(df.loc[(df['Year']==2022) & (df[select_industry]==select), columns], 
+    column_config={"Year": st.column_config.NumberColumn(
+            "Year",
+            format="%d",
+        ),})
     
     filtered_df = df.loc[(df['Year']==2022) & (df[select_industry]==select)]
     m = folium.Map(location=[filtered_df['LATITUDE'].mean(), filtered_df['LONGITUDE'].mean()], 
