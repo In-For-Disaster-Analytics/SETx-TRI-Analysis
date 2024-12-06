@@ -45,16 +45,19 @@ st.image("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-A
 
 df = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/TCEQ_Stars.csv")
 NAICS = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/NAICS.csv")
-NAICS=NAICS[['TCEQ Air Account Number', 'Industry Description']].drop_duplicates()
+NAICS['NAICS Code']=NAICS['NAICS Code'].apply(lambda x: str(x).replace("-", ""))
+NAICS=NAICS[['TCEQ Air Account Number', 'Industry Description','NAICS Code']].drop_duplicates()
 df = df.join(NAICS.set_index( 'TCEQ Air Account Number'), on='TCEQ Air Account Number', how='left')
+
 df['LATITUDE']= df['Latitude (Decimal)']
 df['LONGITUDE']=-df['Longitude (Decimal)']
 df['Site']= df['Organization']+",  "+df['Site']
 iris = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/iris.csv")
 iris['CASRN'] = iris['CASRN'].apply(lambda x: str(x).replace("-", ""))
 df = df.join(iris.set_index( 'CASRN'), on='CAS Number', how='left')
+
 with st.form("NaicsvsIndustry"):
-  select_industry = st.selectbox("Select to use either Industry code or Facility Name",['Industry Description', 'Site'] )
+  select_industry = st.selectbox("Select to use either Industry code or Facility Name",['Industry Description', 'Site','NAICS Code'] )
   submitted_ind = st.form_submit_button("Submit")
  
 st.write("Select a either the industry or facility name above to view emissions data")
