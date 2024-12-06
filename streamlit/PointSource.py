@@ -78,11 +78,11 @@ with st.form("table"):
     base_columns = ['Year', 'County','Site', 'LATITUDE', 'LONGITUDE', 'TCEQ Contaminant Name', 
                     'Annual Emissions (tpy)', 'Ozone Season Emissions (ppd) ', 
                     'Emissions From SSMS (tpy)', 'Emission Events (tpy)',
-                    'Is Hazardous Air Pollutant (Y/N)?', 'Is VOC? (Y)?']
+                    'Is Hazardous Air Pollutant (Y/N)?', 'Is VOC? (Y)?', 'RfC', 'Inhalation Unit Risk', 'Inhalation Unit Risk 2']
     
     # Filter the dataframe first
     filtered_df = df.loc[(df['Year']==2022) & (df[select_industry]==select)]
-    st.dataframe(filtered_df,)
+    st.dataframe(filtered_df[base_columns])
     m = folium.Map(location=[filtered_df['LATITUDE'].mean(), filtered_df['LONGITUDE'].mean()], 
                   zoom_start=10)
     
