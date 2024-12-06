@@ -54,6 +54,13 @@ df['LONGITUDE']=-df['Longitude (Decimal)']
 df['Site']= df['Organization']+",  "+df['Site']
 iris = pd.read_csv("https://raw.githubusercontent.com/In-For-Disaster-Analytics/SETx-TRI-Analysis/refs/heads/main/streamlit/iris.csv")
 iris['CASRN'] = iris['CASRN'].apply(lambda x: str(x).replace("-", ""))
+iris = iris.pivot_table(
+        index='CASRN',
+        columns='Toxicity Value Type',
+        values='Toxicity Value',
+        aggfunc='first'
+    ).reset_index()
+
 df = df.join(iris.set_index( 'CASRN'), on='CAS Number', how='left')
 
 with st.form("NaicsvsIndustry"):
@@ -75,23 +82,7 @@ with st.form("table"):
     
     # Filter the dataframe first
     filtered_df = df.loc[(df['Year']==2022) & (df[select_industry]==select)]
-    
-    # Create pivot table
-    pivoted_df = filtered_df.pivot_table(
-        index=base_columns,
-        columns='Toxicity Value Type',
-        values='Toxicity Value',
-        aggfunc='first'
-    ).reset_index()
-    
-    # Display the pivoted dataframe
-    st.dataframe(pivoted_df,
-        column_config={"Year": st.column_config.NumberColumn(
-            "Year",
-            format="%d",
-        ),})
-    
-    filtered_df = df.loc[(df['Year']==2022) & (df[select_industry]==select)]
+    st.dataframe(filtered_df,)
     m = folium.Map(location=[filtered_df['LATITUDE'].mean(), filtered_df['LONGITUDE'].mean()], 
                   zoom_start=10)
     
