@@ -64,11 +64,26 @@ with st.form("table"):
   select = st.selectbox("Select Code", df[select_industry].sort_values().unique())
   submitted = st.form_submit_button("Submit")
   if submitted:
-    columns = ['Year', 'County','Site', 'LATITUDE', 'LONGITUDE', 'TCEQ Contaminant Name', 'Annual Emissions (tpy)', 
-               'Ozone Season Emissions (ppd) ', 'Emissions From SSMS (tpy)', 'Emission Events (tpy)',
-               'Toxicity Value Type'	,'Toxicity Value', 'Is Hazardous Air Pollutant (Y/N)?', 'Is VOC? (Y)?',]
-    st.dataframe(df.loc[(df['Year']==2022) & (df[select_industry]==select), columns], 
-    column_config={"Year": st.column_config.NumberColumn(
+       # Define base columns excluding toxicity values
+    base_columns = ['Year', 'County','Site', 'LATITUDE', 'LONGITUDE', 'TCEQ Contaminant Name', 
+                    'Annual Emissions (tpy)', 'Ozone Season Emissions (ppd) ', 
+                    'Emissions From SSMS (tpy)', 'Emission Events (tpy)',
+                    'Is Hazardous Air Pollutant (Y/N)?', 'Is VOC? (Y)?']
+    
+    # Filter the dataframe first
+    filtered_df = df.loc[(df['Year']==2022) & (df[select_industry]==select)]
+    
+    # Create pivot table
+    pivoted_df = filtered_df.pivot_table(
+        index=base_columns,
+        columns='Toxicity Value Type',
+        values='Toxicity Value',
+        aggfunc='first'
+    ).reset_index()
+    
+    # Display the pivoted dataframe
+    st.dataframe(pivoted_df,
+        column_config={"Year": st.column_config.NumberColumn(
             "Year",
             format="%d",
         ),})
