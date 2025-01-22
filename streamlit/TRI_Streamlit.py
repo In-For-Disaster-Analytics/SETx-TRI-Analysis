@@ -51,17 +51,17 @@ def map(tri_counties):
     colors = ['#00FF00', '#66FF00', '#CCFF00', '#FFFF00', '#FFCC00', '#FF6600', '#FF0000']
     # Create a color map with custom breaks
     colormap = LinearColormap(colors=colors, vmin=0, vmax=5000, index=breaks)
-    tri_counties[f'TRI {year.value} Air Total (Tons)']=tri_counties[f'TRI {year.value} Air Total (Tons)'].astype(int)
+    tri_counties[f'TRI {year} Air Total (Tons)']=tri_counties[f'TRI {year} Air Total (Tons)'].astype(int)
     # Add the counties to the map
     folium.GeoJson(
         tri_counties,
         style_function=lambda feature: {
-            'fillColor': colormap(int(min(feature['properties'][f'TRI {year.value} Air Total (Tons)'], 50000))),
+            'fillColor': colormap(int(min(feature['properties'][f'TRI {year} Air Total (Tons)'], 50000))),
             'color': 'black',
             'weight': 1,
             'fillOpacity': 0.7,
         },
-        tooltip=folium.GeoJsonTooltip(fields=['CNTY_NM', f'TRI {year.value} Air Total (Tons)'])
+        tooltip=folium.GeoJsonTooltip(fields=['CNTY_NM', f'TRI {year} Air Total (Tons)'])
     ).add_to(m)
 
 
@@ -70,7 +70,7 @@ def map(tri_counties):
     legend_html = f'''
     <div style="position: fixed; bottom: 50px; left: 50px; width: 220px; height: 180px;
     border:2px solid grey; z-index:9999; font-size:14px; background-color:white;
-    ">&nbsp; TRI {year.value} Air Total (Tons)<br>
+    ">&nbsp; TRI {year} Air Total (Tons)<br>
     &nbsp; <i style="background:#00FF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;0 - 100<br>
     &nbsp; <i style="background:#66FF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;100 - 200<br>
     &nbsp; <i style="background:#CCFF00; display:inline-block; width:10px; height:10px;"></i>&nbsp;200 - 500<br>
@@ -97,9 +97,9 @@ def Texas_Total_Air(TRI):
     county_df = pd.DataFrame()
     county_df['County'] = TRI['COUNTY'].unique()
     for g in TRI.groupby('COUNTY'):
-        county_df.loc[county_df['County']==g[0], f'TRI {year.value} Air Total (pounds)']=g[1]['Total Air (lbs)'].sum()
-    county_df[f'TRI {year.value} Air Total (Tons)']=county_df[f'TRI {year.value} Air Total (pounds)']/2000
-    county_df['TRI Air Release Total (County Rank)']=county_df[f'TRI {year.value} Air Total (Tons)'].rank(ascending=False)
+        county_df.loc[county_df['County']==g[0], f'TRI {year} Air Total (pounds)']=g[1]['Total Air (lbs)'].sum()
+    county_df[f'TRI {year} Air Total (Tons)']=county_df[f'TRI {year} Air Total (pounds)']/2000
+    county_df['TRI Air Release Total (County Rank)']=county_df[f'TRI {year} Air Total (Tons)'].rank(ascending=False)
     tri_counties = counties.join(county_df.set_index('County'), on = 'Counties').reset_index()
     tri_counties.fillna(0, inplace = True)
     st.write('## Total Air Emissions by Texas County\n\
@@ -120,9 +120,9 @@ def create_chart_plotly(TRI, group, setx=True):
     
     # Set chart title per inputs
     if setx:
-        plot_title = f'{year.value} Annual Emissions of TRI-Listed Chemicals in SETx'
+        plot_title = f'{year} Annual Emissions of TRI-Listed Chemicals in SETx'
     else:
-        plot_title = f'{year.value} Annual Emissions of TRI-Listed Chemicals in Texas'
+        plot_title = f'{year} Annual Emissions of TRI-Listed Chemicals in Texas'
     
     # Generate chart
     y_min = chemical[chemical > 0].min()
