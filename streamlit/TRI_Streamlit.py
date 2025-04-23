@@ -33,7 +33,7 @@ def download(year, region):
         TRI['Total Air (Tons)']= TRI['Total Air (lbs)']/2000
         if isinstance(TRI, pd.DataFrame):
             st.write("Data downloaded successfully.")
-            st.dataframe(TRI.style.format(thousands="", precision=0))
+            st.dataframe(TRI.style.format(thousands=""))
         return NAICS, counties, TRI
 
 
