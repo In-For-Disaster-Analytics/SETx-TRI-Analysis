@@ -2,6 +2,25 @@ import streamlit as st
 import pandas as pd
 from streamlit_folium import st_folium
 import folium
+
+@st.fragment
+def map_and_table(filtered_df): 
+  st.dataframe(filtered_df[base_columns].style.format(thousands="", precision=0))
+  m = folium.Map(location=[filtered_df['LATITUDE'].mean(), filtered_df['LONGITUDE'].mean()], 
+                zoom_start=10)
+  
+  for idx, row in filtered_df.iterrows():
+      folium.CircleMarker(
+          location=[row['LATITUDE'], row['LONGITUDE']],
+          popup=row['Organization'],
+          tooltip=row['Site'],
+          radius=8,
+          color='red',
+          fill=True
+      ).add_to(m)
+  
+  st_folium(m, width=800)
+
 st.set_page_config(layout="wide")
 st.header('Point Source Emissions Reports for SETx')
 st.write("This cookbook provides emissions data for point sources in Southeast Texas (SETx) counties\
@@ -63,37 +82,15 @@ iris = iris.pivot_table(
 
 df = df.join(iris.set_index( 'CASRN'), on='CAS Number', how='left')
 
-with st.form("NaicsvsIndustry"):
-  select_industry = st.selectbox("Select to use either Industry code or Facility Name",['Industry Description', 'Site','NAICS Code'] )
-  submitted_ind = st.form_submit_button("Submit")
- 
-st.write("Select a either the industry or facility name above to view emissions data")
+select_industry = st.selectbox("Select to use either Industry code or Facility Name",['Industry Description', 'Site','NAICS Code'] )
 
-
-with st.form("table"):
-  select = st.selectbox("Select Code", df[select_industry].sort_values().unique())
-  submitted = st.form_submit_button("Submit")
-  if submitted:
-       # Define base columns excluding toxicity values
-    base_columns = ['Year', 'County','Site', 'LATITUDE', 'LONGITUDE', 'TCEQ Contaminant Name', 
-                    'Annual Emissions (tpy)', 'Ozone Season Emissions (ppd) ', 
-                    'Emissions From SSMS (tpy)', 'Emission Events (tpy)',
-                    'Is Hazardous Air Pollutant (Y/N)?', 'Is VOC? (Y)?', 'RfC', 'Inhalation Unit Risk', 'Inhalation Unit Risk 2']
-    
-    # Filter the dataframe first
-    filtered_df = df.loc[(df['Year']==2022) & (df[select_industry]==select)]
-    st.dataframe(filtered_df[base_columns])
-    m = folium.Map(location=[filtered_df['LATITUDE'].mean(), filtered_df['LONGITUDE'].mean()], 
-                  zoom_start=10)
-    
-    for idx, row in filtered_df.iterrows():
-        folium.CircleMarker(
-            location=[row['LATITUDE'], row['LONGITUDE']],
-            popup=row['Organization'],
-            tooltip=row['Site'],
-            radius=8,
-            color='red',
-            fill=True
-        ).add_to(m)
-    
-    st_folium(m, width=800)
+select = st.selectbox(f"Select {select_industry} to view emissions data", df[select_industry].sort_values().unique())
+# Define base columns excluding toxicity values
+base_columns = ['Year', 'County','Site', 'LATITUDE', 'LONGITUDE', 'TCEQ Contaminant Name', 
+                'Annual Emissions (tpy)', 'Ozone Season Emissions (ppd) ', 
+                'Emissions From SSMS (tpy)', 'Emission Events (tpy)',
+                'Is Hazardous Air Pollutant (Y/N)?', 'Is VOC? (Y)?', 'RfC', 'Inhalation Unit Risk', 'Inhalation Unit Risk 2']
+if st.button("Display Profile"):
+  # Filter the dataframe first
+  filtered_df = df.loc[(df['Year']==2022) & (df[select_industry]==select)]
+  map_and_table(filtered_df)

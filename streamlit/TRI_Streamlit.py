@@ -9,7 +9,7 @@ import geopandas as gpd
 import streamlit_folium as st_folium
 import plotly.express as px
 import plotly.graph_objects as go         # initiate notebook for offline plot
-
+pd.set_option("styler.render.max_elements", 1216768)
 
 def remove_numbers_and_hyphen_with_space(text):
      return re.sub(r'\d+\. ', '', text)
@@ -33,7 +33,7 @@ def download(year, region):
         TRI['Total Air (Tons)']= TRI['Total Air (lbs)']/2000
         if isinstance(TRI, pd.DataFrame):
             st.write("Data downloaded successfully.")
-            st.dataframe(TRI)
+            st.dataframe(TRI.style.format(thousands="", precision=0))
         return NAICS, counties, TRI
 
 
@@ -170,37 +170,36 @@ def create_chart_plotly(TRI, group, setx=True):
     st.plotly_chart(bar_plot)
 
 
-
+@st.fragment
 def display_NAICS_profile( TRI ):
     st.write('## Industrial Sector Chemical Profiles in SETx-UIFL')
     geo = {'CHEMICAL':['NAICS Description', "FACILITY NAME"],
        'NAICS Description':['CHEMICAL'],
          'FACILITY NAME':['CHEMICAL']}
-    with st.form(key='my_form'):
-        row = st.selectbox(options = geo.keys(),
-                        label='Select what you want to profile ',
-        )
-        st.session_state.init = row
-        columns = st.selectbox(options=geo[st.session_state.init],
-                               index=0,
-                            label='Select how you want it profiled (Columns) ',
-                        )
 
-        selection  = st.multiselect(
-                                options=TRI.loc[(TRI['COUNTY'].isin(setx_counties)),columns].unique(),
-                             
+    row = st.selectbox(options = geo.keys(),
+                    label='Select what you want to profile ',
+    )
+    st.session_state.init = row
+    columns = st.selectbox(options=geo[st.session_state.init],
+                            index=0,
+                        label='Select how you want it profiled (Columns) ',
+                    )
+
+    selection  = st.multiselect(
+                            options=TRI.loc[(TRI['COUNTY'].isin(setx_counties)),columns].unique(),
                             
-                                label="Select columns you want to view:"
-                            )
-        st.form_submit_button(label='Submit')
-
-    st.write(f'Select which {row} to profile by {columns} sector.',)
-    if len(selection)==0:
-        selection= TRI.loc[(TRI['COUNTY'].isin(setx_counties)),columns].unique().tolist()[:3]
-    st.write(columns)
-    st.dataframe( TRI.loc[(TRI['COUNTY'].isin(setx_counties)) & (TRI[columns].isin(selection))& \
-                    (TRI['CHEMICAL'])].pivot_table(index=row, 
-                columns=columns, values='Total Air (Tons)', aggfunc='sum', fill_value=0))
+                        
+                            label="Select columns you want to view:"
+                        )
+    if st.button("Display Profile"):
+        st.write(f'Select which {row} to profile by {columns} sector.',)
+        if len(selection)==0:
+            selection= TRI.loc[(TRI['COUNTY'].isin(setx_counties)),columns].unique().tolist()[:3]
+        st.write(columns)
+        st.dataframe( TRI.loc[(TRI['COUNTY'].isin(setx_counties)) & (TRI[columns].isin(selection))& \
+                        (TRI['CHEMICAL'])].pivot_table(index=row, 
+                    columns=columns, values='Total Air (Tons)', aggfunc='sum', fill_value=0))
 
 
  
