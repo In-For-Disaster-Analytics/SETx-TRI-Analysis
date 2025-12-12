@@ -243,9 +243,9 @@ if __name__ == '__main__':
 
     with st.form(key='download'):
         year = slider = st.slider(
-        value=2023,
+        value=2024,
         min_value=1987,
-        max_value=2023,
+        max_value=2024,
         step=1,
         label='Year of Emissions:')
         region =st.selectbox(
